@@ -27,3 +27,6 @@ export TERM=vt100**
 *Set path to login shell.* - **echo $SHELL**
 *Set X display name* - **echo $DISPLAY _export DISPLAY_=:0.1**
 ~~EDITOR~~ *Set name of default text editor.* - ***export EDITOR=/usr/bin/vim***
+
+
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
