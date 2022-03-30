@@ -13,15 +13,18 @@ do
 
     if (($checkNum % 3 == 0)) && (($checkNum % 5 == 0))
     then 
-        echo "\nfizzbuzz\n";
+        echo "fizzbuzz";
+         echo
     elif (($checkNum % 3 == 0))
-    then 
-        
-        echo "\nfizz\n";
+    then    
+        echo "fizz";
+        echo
     elif (($checkNum % 5 == 0))
-    then
-        echo "\nbuzz\n";
+    then  
+        echo "buzz";
+        echo
     else
-        echo "\nNothing\n";
+        echo "Nothing";
+        echo
     fi    
 done
