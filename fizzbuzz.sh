@@ -12,22 +12,26 @@ do
     read -p "Please enter any number between 0 to 20 : " checkNum;
     if (( $checkNum < 20 ))
     then
-        if (($checkNum % 3 == 0)) && (($checkNum % 5 == 0))
-        then 
-            echo "fizzbuzz";
-            echo
-        elif (($checkNum % 3 == 0))
-        then    
-            echo "fizz";
-            echo
-        elif (($checkNum % 5 == 0))
-        then  
-            echo "buzz";
-            echo
-        else
-            echo "Nothing";
-            echo
-        fi 
+        for((i=1;i<=$checkNum;i++))
+        do
+            if (($i % 3 == 0)) && (($i % 5 == 0))
+            then 
+                echo "fizzbuzz";
+                echo
+            elif (($i % 3 == 0))
+            then    
+                echo "fizz";
+                echo
+            elif (($i % 5 == 0))
+            then  
+                echo "buzz";
+                echo
+            else
+                echo $i;
+                echo
+            fi
+            sleep 1;
+        done     
     else 
         echo "Not in range"
     fi          
