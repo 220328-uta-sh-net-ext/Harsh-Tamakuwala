@@ -57,5 +57,12 @@ namespace CSharpBasic
                 Console.WriteLine(item);
             }
               }
+
+              public static void divide(){
+                  int a=5;
+                  int b=0;
+                  int result =a/b;
+                  Console.WriteLine(result);
+              }
     }
 }

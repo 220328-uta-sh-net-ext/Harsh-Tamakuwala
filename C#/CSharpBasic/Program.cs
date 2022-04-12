@@ -19,4 +19,4 @@ using CSharpBasic;
 //     Console.Write(item+" ");
 // }
 
-CSharpCollections.GenericLinkedList();
+CSharpCollections.divide();

@@ -9,10 +9,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/HelloWorld/bin/Debug/net6.0/HelloWorld.dll",
+            "program": "${workspaceFolder}/ArrayExercises/bin/Debug/net6.0/ArrayExercises.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/HelloWorld",
-            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/ArrayExercises",
+            "console": "internalConsole",
             "stopAtEntry": false
         },
         {
