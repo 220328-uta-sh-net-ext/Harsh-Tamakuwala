@@ -5,7 +5,7 @@ namespace CodingChallenge
         public static bool AnagramMethod(string s1, string s2)
         {
             s1 = StringSort(s1);
-            s2 = StringSort(s2);
+            //s2 = StringSort(s2);
             
             if (s1.Length != s2.Length)
             {
@@ -31,7 +31,8 @@ namespace CodingChallenge
             for (int i = 0; i < charArray.Length; i++)
             {
                 for (int j = i + 1; j < charArray.Length; j++)
-                {
+                {    
+                    Console.WriteLine(charArray[i]+" " + System.Convert.ToInt32(charArray[i]));
                     if (System.Convert.ToInt32(charArray[i]) > System.Convert.ToInt32(charArray[j]))
                     {
                         var tempVar = charArray[i];
@@ -39,10 +40,11 @@ namespace CodingChallenge
                         charArray[j] = tempVar;
                     }
                 }
+                Console.WriteLine( new String(charArray));
 
             }
             temp = new String(charArray);
-
+            
             return temp;
         }
     }
