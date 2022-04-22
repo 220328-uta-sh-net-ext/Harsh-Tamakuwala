@@ -12,6 +12,17 @@ namespace RestaurantUi
 		/// </summary>
 		/// <returns>Return the menu that will change your screen</returns>
 		string UserChoice();
+		
+	}
+
+	public interface IInitiateMenu
+    {
+		/// <summary>
+		/// Asking for chosing admin or user
+		/// if user is selected then asking for registered or new user
+		/// </summary>
+
+		public string getinitiated();
 
 	}
 }

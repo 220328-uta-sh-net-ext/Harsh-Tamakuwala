@@ -9,16 +9,19 @@ namespace RestaurantModel
 
         public UserModelClass()
         {
-            //UserId = 0;
-            FirstName = "john";
+            UserId = 0;
+            firstName = "john";
             LastName = "Pierson";
-           // Age = 18;
-            ContactNo = 1234567890;
-            EmailId = "abc@gamil.com";
-           // UserReview = new List<ReviewModelClass>();
+            password = "abc123";
+            confirmPassword = "abc123";
+            contactNo = 1234567890;
+            emailId = "abc@gamil.com";
+            // UserReview = new List<ReviewModelClass>();
 
         }
+
         public string LastName { get; set; }
+
         private string firstName;
         public string FirstName
         {
@@ -37,25 +40,44 @@ namespace RestaurantModel
 
         }
 
-        //public int Age
-        //{
-        //    get
-        //    {
-        //        return Age;
-        //    }
-        //    set
-        //    {
-        //        if (value > 16)
-        //        {
-        //            Age = value;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("Age Must be greater than 16");
-        //        }
-        //    }
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                if (!(value.Length < 6))
+                {
+                    password = value;
+                }
+                else
+                {
+                    throw new Exception("Minimum 6 character requried!!");
+                }
+            }
 
-        //}
+
+        }
+
+        private string confirmPassword;
+        public string ConfirmPassword
+        {
+            get { return confirmPassword; }
+            set
+            {
+                if (!(value.Length < 6))
+                {
+                    confirmPassword = value;
+                }
+                else
+                {
+                    throw new Exception("Minimum 6 character requried!!");
+                }
+            }
+
+
+        }
+
         private long contactNo;
         public long ContactNo
         {
@@ -76,6 +98,7 @@ namespace RestaurantModel
 
             }
         }
+
         private string emailId;
         public string EmailId
         {
@@ -100,7 +123,7 @@ namespace RestaurantModel
         }
 
         //public List<ReviewModelClass> UserReview { get; set; }
-        // public int UserId { get; set; }
+        public int UserId { get; set; }
     }
 }
 
