@@ -16,8 +16,8 @@ var result = initialRestaurantClass.getinitiated();
 
 if (result == "Login Successful")
 {
-    Log.Information(Globals.userName +"Login Successful");
-    Console.WriteLine(Globals.userName + "Login Successful");
+    Log.Information(Globals.userName +" Login Successful");
+    
     Log.Information("Login Successful");
     while (repeat)
     {

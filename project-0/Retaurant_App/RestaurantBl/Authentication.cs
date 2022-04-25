@@ -1,5 +1,4 @@
-﻿using System;
-using RestaurantModel;
+﻿using RestaurantModel;
 
 namespace RestaurantBl
 {
@@ -24,32 +23,16 @@ namespace RestaurantBl
         /// <param name="choice">it checks wether person is admin or user</param>
         /// <param name="userChoice"> it will check wether user is new or already registered</param>
         /// <returns>returns the string wether login is successful or not </returns>
-        public string login(string choice, string userChoice)
+        public string login(string choice, string emailId,string password)
         {
 
-            Console.Clear();
-            Console.WriteLine("Please enter email id and password\n");
+            
             if (choice == "Admin")
             {
                 var email = "admin@gmail.com";
                 var pass = "admin123@";
-                emailSection:
-                Console.Write("Email id: ");
-                loginModel.EmailId = Console.ReadLine();
-                if (string.IsNullOrEmpty(loginModel.EmailId))
-                {
-                    Console.Write("Email should not be empty!\n");
-                    goto emailSection;
-                }
-                passSection:
-                Console.Write("Password: ");
-                loginModel.Password = Console.ReadLine();
-                if (string.IsNullOrEmpty(loginModel.Password))
-                {
-                    Console.Write("Password should not be empty!\n");
-                    goto passSection;
-                }
-                if (loginModel.EmailId == email && loginModel.Password == pass)
+                //email.Substring(0);
+                if (emailId == email && password == pass)
                 {
                     Console.Clear();
                     Console.WriteLine("\n----------Login Successful!!----------\n");
@@ -58,19 +41,58 @@ namespace RestaurantBl
             }
             else if (choice == "User")
             {
+                Console.Clear();
                 return "Login Successful";
             }
             return "Login Failed";
         }
 
-        public string RegisterUser(string choice, string userChoice)
+
+
+        public string signupUser(string choice)
         {
             Console.WriteLine("\n----------Register Now----------\n");
             var result = AddUserClass.AddUser();
             Console.WriteLine(result);
-            userChoice = "Registered user";
-            var loginResult = login(choice, userChoice);
-            return loginResult;
+           // userChoice = "Registered user";
+           if(result == "User Added!!!")
+            {
+              var loginResult=  askInput(choice);
+                return loginResult;
+            }
+            else
+            {
+               
+                return "Login Failed";
+            }
+            
+        }
+
+
+
+        public string askInput(string choice)
+        {
+            Console.Clear();
+            Console.WriteLine("Please enter email id and password\n");
+        emailSection:
+            Console.Write("Email id: ");
+            loginModel.EmailId = Console.ReadLine();
+            if (string.IsNullOrEmpty(loginModel.EmailId))
+            {
+                Console.Write("Email should not be empty!\n");
+                goto emailSection;
+            }
+        passSection:
+            Console.Write("Password: ");
+            loginModel.Password = Console.ReadLine();
+            if (string.IsNullOrEmpty(loginModel.Password))
+            {
+                Console.Write("Password should not be empty!\n");
+                goto passSection;
+            }
+            var result = login(choice, loginModel.EmailId, loginModel.Password);
+            return result;
+
         }
     }
 }

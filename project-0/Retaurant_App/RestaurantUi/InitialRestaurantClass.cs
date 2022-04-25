@@ -45,11 +45,11 @@ namespace RestaurantUi
                     registeredNewUserSelectionMenu.Display();
                     Globals.userChoice = registeredNewUserSelectionMenu.UserChoice();
                     if (Globals.userChoice == "Registered user"){
-                        var result = authentication.login(Globals.choice, Globals.userChoice);
+                        var result = authentication.askInput(Globals.choice);
                         return result;
                     }else if(Globals.userChoice == "New user")
                     {
-                        var result = authentication.RegisterUser(Globals.choice, Globals.userChoice);
+                        var result = authentication.signupUser(Globals.choice);
                         Globals.userChoice = "Registered user";
                         return result;
                     }else
@@ -62,7 +62,7 @@ namespace RestaurantUi
                 }
                 else if (Globals.choice == "Admin")
                 {
-                    var result = authentication.login(Globals.choice, Globals.userChoice);
+                    var result = authentication.askInput(Globals.choice);
                     return result;
                 }
 

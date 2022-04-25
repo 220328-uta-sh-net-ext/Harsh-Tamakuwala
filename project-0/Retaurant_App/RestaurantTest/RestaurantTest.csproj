@@ -31,5 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RetaurantModel\RestaurantModel.csproj" />
+    <ProjectReference Include="..\RestaurantBl\RestaurantBl.csproj" />
   </ItemGroup>
 </Project>

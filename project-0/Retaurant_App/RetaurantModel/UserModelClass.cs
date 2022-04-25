@@ -10,7 +10,7 @@ namespace RestaurantModel
         public UserModelClass()
         {
             UserId = 0;
-            firstName = "john";
+           // firstName = "john";
             LastName = "Pierson";
             password = "abc123";
             confirmPassword = "abc123";

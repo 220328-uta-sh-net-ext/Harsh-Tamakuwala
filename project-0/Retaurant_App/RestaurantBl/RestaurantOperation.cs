@@ -36,9 +36,9 @@ namespace RestaurantBl
             int reviewNo = reviewModel.ReviewId;
             reviewNo += 1;
             reviewModel.ReviewId = reviewNo;
-            //get the list of resaturant name and display it to select the restaurant to review
-            Console.WriteLine("Please Enter your Name:");
-            reviewModel.UserName = Console.ReadLine();
+            ////get the list of resaturant name and display it to select the restaurant to review
+            //Console.WriteLine("Please Enter your Name:");
+            //reviewModel.UserName = Console.ReadLine();
             Console.WriteLine("Please Enter restaurant Name from the list:");
             reviewModel.RestaurantName = Console.ReadLine();
 
