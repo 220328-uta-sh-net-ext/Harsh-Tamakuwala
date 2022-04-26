@@ -2,12 +2,12 @@
 
 using RestaurantUi;
 using RestaurantBl;
-
+using RestaurantDl;
 
 
 Log.Logger = new LoggerConfiguration().WriteTo.File("./Logs/user.txt").MinimumLevel.Debug().MinimumLevel.Information()
     .CreateLogger();
-
+ 
 bool repeat = true;
 InitialRestaurantClass initialRestaurantClass = new InitialRestaurantClass();
 AdminUserMenu menu = new AdminUserMenu();
@@ -96,7 +96,7 @@ if (result == "Login Successful")
 }
 else
 {
-    Console.Clear();
+  //  Console.Clear();
     Log.Information("Login failed");
     Console.WriteLine("Invalid credential.");
     Console.WriteLine("\n----------Login Failed!!----------\n");

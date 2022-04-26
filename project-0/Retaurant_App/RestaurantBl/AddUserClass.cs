@@ -1,4 +1,5 @@
 ﻿using System;
+using RestaurantDl;
 using RestaurantModel;
 
 namespace RestaurantBl
@@ -11,9 +12,7 @@ namespace RestaurantBl
         public static string AddUser()
         {
             UserModelClass userModel = new UserModelClass();
-            int userNo = userModel.UserId;
-            userNo += 1;
-            userModel.UserId = userNo;
+            
 
             Console.Write("Please Enter First Name: ");
             userModel.FirstName = Console.ReadLine();
@@ -78,9 +77,20 @@ namespace RestaurantBl
                 Console.WriteLine("Please enter valid contact number!!");
                 goto contactSection;
             }
+            UserRepository user = new UserRepository();
+            var result = user.AddUserToDB(userModel);
+            Console.WriteLine("result from addUserClass" + result);
+            if(result == "User Added!!!")
+            {
+                return "User Added!!!";
+            }
+            else
+            {
+                return result.ToString();
+            }
 
             //Console.WriteLine(userModel.FirstName);
-            return "User Added!!!";
+           
         }
        
     }

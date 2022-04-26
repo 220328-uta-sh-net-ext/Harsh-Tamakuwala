@@ -10,7 +10,7 @@ namespace RestaurantModel
         public UserModelClass()
         {
             UserId = 0;
-           // firstName = "john";
+            firstName = "john";
             LastName = "Pierson";
             password = "abc123";
             confirmPassword = "abc123";
@@ -21,7 +21,7 @@ namespace RestaurantModel
         }
 
         public string LastName { get; set; }
-
+        
         private string firstName;
         public string FirstName
         {
@@ -78,8 +78,8 @@ namespace RestaurantModel
 
         }
 
-        private long contactNo;
-        public long ContactNo
+        private decimal contactNo;
+        public decimal ContactNo
         {
             get
             {
