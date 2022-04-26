@@ -19,7 +19,7 @@ namespace RestaurantBl
             
             Console.Write("Please Enter Last Name: ");
             userModel.LastName = Console.ReadLine();
-            Globals.userName = userModel.FirstName + " " + userModel.LastName;
+            //Globals.userName = userModel.FirstName + " " + userModel.LastName;
             Console.Write("Please Enter EmailId: ");
         emailSection:
             try

@@ -96,7 +96,7 @@ if (result == "Login Successful")
 }
 else
 {
-  //  Console.Clear();
+    Console.Clear();
     Log.Information("Login failed");
     Console.WriteLine("Invalid credential.");
     Console.WriteLine("\n----------Login Failed!!----------\n");
