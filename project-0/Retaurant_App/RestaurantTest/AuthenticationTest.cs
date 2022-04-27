@@ -20,7 +20,7 @@ namespace RestaurantTest
             loginModel.Password = "admin123@";
             string validresult = "Login Successful";
             //Act
-            string result=authentication.login("Admin", loginModel.EmailId ,
+            string result=authentication.Login("Admin", loginModel.EmailId ,
             loginModel.Password);
             //Assert
             // Assert.NotNull(restaurantModel.RestaurantName);

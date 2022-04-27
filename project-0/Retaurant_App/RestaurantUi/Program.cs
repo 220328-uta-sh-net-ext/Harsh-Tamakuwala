@@ -7,7 +7,7 @@ using RestaurantDl;
 
 Log.Logger = new LoggerConfiguration().WriteTo.File("./Logs/user.txt").MinimumLevel.Debug().MinimumLevel.Information()
     .CreateLogger();
- 
+
 bool repeat = true;
 InitialRestaurantClass initialRestaurantClass = new InitialRestaurantClass();
 AdminUserMenu menu = new AdminUserMenu();
@@ -16,9 +16,8 @@ var result = initialRestaurantClass.getinitiated();
 
 if (result == "Login Successful")
 {
-    Log.Information(Globals.userName +" Login Successful");
-    
-    Log.Information("Login Successful");
+
+    Log.Information(Globals.userName + " Login Successful");
     while (repeat)
     {
         menu.Display();
@@ -74,12 +73,12 @@ if (result == "Login Successful")
             case "SearchUserAsAdmin":
                 //call SearchPokemon method
                 Console.Clear();
-                RestaurantOperation.SearchUserAsAdmin();
-                Console.WriteLine("SearchUserAsAdmin() Method implementation is in progress....");
+                SearchUser.SearchUserAsAdmin();
+
                 break;
             case "MainMenu":
                 Console.Clear();
-             
+
                 menu = new AdminUserMenu();
                 break;
             case "Exit":

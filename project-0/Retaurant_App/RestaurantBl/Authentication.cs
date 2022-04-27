@@ -7,7 +7,7 @@ namespace RestaurantBl
 
         public static string choice = "NoChoice";
         public static string userChoice = "Registered";
-        public static string userName = "admin";
+        public static string userName = "Admin";
     }
     public class Authentication
     {
@@ -23,10 +23,10 @@ namespace RestaurantBl
         /// <param name="choice">it checks wether person is admin or user</param>
         /// <param name="userChoice"> it will check wether user is new or already registered</param>
         /// <returns>returns the string wether login is successful or not </returns>
-        public string login(string choice, string emailId,string password)
+        public string Login(string choice, string emailId, string password)
         {
 
-            
+
             if (choice == "Admin")
             {
                 var email = "admin@gmail.com";
@@ -48,29 +48,7 @@ namespace RestaurantBl
         }
 
 
-
-        public string signupUser(string choice)
-        {
-            Console.WriteLine("\n----------Register Now----------\n");
-            var result = AddUserClass.AddUser();
-            Console.WriteLine(result);
-           // userChoice = "Registered user";
-           if(result == "User Added!!!")
-            {
-              var loginResult=  askInput(choice);
-                return loginResult;
-            }
-            else
-            {
-               
-                return "Login Failed";
-            }
-            
-        }
-
-
-
-        public string askInput(string choice)
+        public string AskInput(string choice)
         {
             Console.Clear();
             Console.WriteLine("Please enter email id and password\n");
@@ -90,7 +68,7 @@ namespace RestaurantBl
                 Console.Write("Password should not be empty!\n");
                 goto passSection;
             }
-            var result = login(choice, loginModel.EmailId, loginModel.Password);
+            var result = Login(choice, loginModel.EmailId, loginModel.Password);
             return result;
 
         }

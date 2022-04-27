@@ -26,7 +26,7 @@ namespace RestaurantUi
             if (RestaurantBl.Globals.choice == "Admin")
             {
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("Press <2> Ability to search user as admin");
+                Console.WriteLine("Press <2> search user");
                 Console.WriteLine("Press <1> Add a new restaurant");
                 Console.WriteLine("Press <0> EXIT");
             }

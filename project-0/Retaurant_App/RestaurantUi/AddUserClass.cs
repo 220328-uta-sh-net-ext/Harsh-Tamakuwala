@@ -1,13 +1,33 @@
 ﻿using System;
+using RestaurantBl;
 using RestaurantDl;
 using RestaurantModel;
 
-namespace RestaurantBl
+namespace RestaurantUi
 {
     public class AddUserClass
     {
         public AddUserClass()
         {
+        }
+        Authentication authentication = new Authentication();
+        public string SignupUser(string choice)
+        {
+            Console.WriteLine("\n----------Register Now----------\n");
+            var result = AddUserClass.AddUser();
+            Console.WriteLine(result);
+            // userChoice = "Registered user";
+            if (result == "User Added!!!")
+            {
+                var loginResult = authentication.AskInput(choice);
+                return loginResult;
+            }
+            else
+            {
+
+                return "Login Failed";
+            }
+
         }
         public static string AddUser()
         {
