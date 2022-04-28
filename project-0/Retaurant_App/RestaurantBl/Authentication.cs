@@ -1,4 +1,5 @@
-﻿using RestaurantModel;
+﻿using RestaurantDl;
+using RestaurantModel;
 
 namespace RestaurantBl
 {
@@ -41,8 +42,25 @@ namespace RestaurantBl
             }
             else if (choice == "User")
             {
+                UserRepository userRepository = new UserRepository();
+               var allUders= userRepository.GetAllUsers();
+               
+                foreach (var user in allUders)
+                {
+                    Console.WriteLine(user.EmailId);
+                    Console.WriteLine(user.Password);
+                    if (user.EmailId == emailId && user.Password == password)
+                    {
+                        Console.Clear();
+                        Globals.userName = user.FirstName + " " + user.LastName;
+                        return "Login Successful";
+                    }
+                    
+                }
+                return "Login Failed";
                 Console.Clear();
-                return "Login Successful";
+                
+                
             }
             return "Login Failed";
         }

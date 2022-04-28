@@ -20,12 +20,13 @@ namespace RestaurantUi
             if (result == "User Added!!!")
             {
                 var loginResult = authentication.AskInput(choice);
+
                 return loginResult;
             }
             else
             {
-
-                return "Login Failed";
+               // Console.WriteLine(result);
+                return result;
             }
 
         }
@@ -99,13 +100,15 @@ namespace RestaurantUi
             }
             UserRepository user = new UserRepository();
             var result = user.AddUserToDB(userModel);
-            Console.WriteLine("result from addUserClass" + result);
+           
             if(result == "User Added!!!")
             {
+                Log.Information("User successfully added");
                 return "User Added!!!";
             }
             else
             {
+                Log.Information(" faild : ", result.ToString());
                 return result.ToString();
             }
 
