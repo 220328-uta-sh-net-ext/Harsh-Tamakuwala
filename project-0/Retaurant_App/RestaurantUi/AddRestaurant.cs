@@ -72,12 +72,12 @@ namespace RestaurantBl
             if (result == "Restaurant Added!!!")
             {
                 Log.Information("Restaurant successfully added");
-                Console.WriteLine("Restaurant Added!!!");
+                Console.WriteLine("\nRestaurant Added!!!\n");
             }
             else
             {
                 Log.Information(" faild : ", result.ToString());
-                Console.WriteLine("\nSometing went wrong. please try again!!");
+                Console.WriteLine("\nSometing went wrong. please try again!!\n");
             }
         }
     }

@@ -13,9 +13,9 @@ namespace RestaurantBl
 
         public static void SearchRestaurant()
         {
-            Console.WriteLine("Search eestaurant by name, address, phoneNo and cost type\n");
+            Console.WriteLine("Search restaurant by name, address, phoneNo and cost type\n");
         search:
-            Console.Write("Search Users : ");
+            Console.Write("Search Restaurant : ");
             string? searchValue = Console.ReadLine();
             if (searchValue == "")
             {
@@ -41,14 +41,14 @@ namespace RestaurantBl
             foreach (var review in reviews.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
-                Console.WriteLine("             Review: " + (review.index + 1));
+                Console.WriteLine("            Review: " + (review.index + 1));
                 Console.WriteLine("");
                 Console.WriteLine("Restaurant Name: " + review.value.RestaurantName);
                 Console.WriteLine("Review By:       " + review.value.UserName);
                 Console.WriteLine("Rating:          " + review.value.Rating);
                 Console.WriteLine("Note:            " + review.value.Comments);
                 Console.WriteLine("Reviewed at:     " + review.value.ReviewTime);
-                
+
                 if ((review.index + 1) == reviews.Count())
                 {
                     Console.WriteLine("\n---------------------------\n");
@@ -60,7 +60,7 @@ namespace RestaurantBl
         public static void ViewRestaurantDetails()
         {
             RestaurantRepository restaurantRepository = new RestaurantRepository();
-           var restaurants =  restaurantRepository.GetItemFromDB();
+            var restaurants = restaurantRepository.GetItemFromDB();
 
             foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
             {
@@ -68,7 +68,7 @@ namespace RestaurantBl
                 Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
                 Console.WriteLine("");
                 Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
-                Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + " " + restaurant.value.city + " " + restaurant.value.state);
+                Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city + ", " + restaurant.value.state);
                 Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
                 Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
                 Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);
@@ -105,9 +105,9 @@ namespace RestaurantBl
                 Console.WriteLine("Please enter a rating between 1 to 5 only!!");
                 goto ratingSection;
             }
-           
+
             Console.WriteLine("Please enter comment:");
-            commentSection:
+        commentSection:
             try
             {
                 reviewModel.Comments = Console.ReadLine();
@@ -121,7 +121,7 @@ namespace RestaurantBl
 
         }
 
-        
+
 
         public static void DisplayRestaurantDetail()
         {
@@ -134,7 +134,7 @@ namespace RestaurantBl
                 Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
                 Console.WriteLine("");
                 Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
-                Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1+ " " + restaurant.value.city+ " " + restaurant.value.state);
+                Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city + ", " + restaurant.value.state);
                 Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
                 Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
                 Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);

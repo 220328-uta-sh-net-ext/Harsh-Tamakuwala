@@ -26,7 +26,8 @@ namespace RestaurantUi
             if (RestaurantBl.Globals.choice == "Admin")
             {
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("Press <2> search user");
+                Console.WriteLine("Press <3> search user");
+                Console.WriteLine("Press <2> View all restaurant");
                 Console.WriteLine("Press <1> Add a new restaurant");
                 Console.WriteLine("Press <0> EXIT");
             }
@@ -84,6 +85,8 @@ namespace RestaurantUi
                     case "1":
                         return "AddNewRestaurant";
                     case "2":
+                        return "DisplayRestaurantDetail";
+                    case "3":
                         return "SearchUserAsAdmin";
                     default:
                         Console.WriteLine("Please input a valid response");

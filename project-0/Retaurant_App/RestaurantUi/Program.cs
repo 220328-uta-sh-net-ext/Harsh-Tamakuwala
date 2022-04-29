@@ -38,7 +38,6 @@ if (result == "Login Successful")
                 Console.Clear();
                 RestaurantOperation.SearchRestaurant();
                 Log.Information("Searched Restaurant.");
-               
                 break;
 
             case "CalculateAllRestaurantAvgRating":
@@ -53,8 +52,7 @@ if (result == "Login Successful")
                 //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.ViewReviews();
-                Log.Information("Viewed Restaurant review.");
-                
+                Log.Information("Viewed Restaurant review.");  
                 break;
 
             case "ViewRestaurantDetails":
@@ -77,7 +75,6 @@ if (result == "Login Successful")
                 Console.Clear();
                 RestaurantOperation.DisplayRestaurantDetail();
                 Log.Information("Displayed Restaurant Detail.");
-                Console.WriteLine("DisplayRestaurantDetail() Method implementation is in progress....");
                 break;
 
             case "SearchUserAsAdmin":

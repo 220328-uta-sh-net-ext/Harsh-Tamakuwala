@@ -32,7 +32,7 @@ namespace RestaurantBl
                     Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
                     Console.WriteLine("");
                     Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
-                    Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + restaurant.value.city + restaurant.value.state);
+                    Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city+ ", " + restaurant.value.state);
                     Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
                     Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
                     Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);
