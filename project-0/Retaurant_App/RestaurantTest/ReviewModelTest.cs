@@ -37,11 +37,11 @@ namespace RestaurantTest
         {
             //Arrange
             ReviewModelClass reviewModel = new ReviewModelClass();
-            string validName = "abc";
+            int validName = 1;
             //Act
-            reviewModel.RestaurantName = validName;
+            reviewModel.RestaurantId = validName;
             //Assert
-            Assert.NotNull(reviewModel.RestaurantName);
+            Assert.NotNull(reviewModel.RestaurantId.ToString());
             //Assert.Equal(validName, reviewModel.RestaurantName);
         }
 

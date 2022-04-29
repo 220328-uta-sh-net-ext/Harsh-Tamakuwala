@@ -6,18 +6,22 @@
         {
             RestaurantId = 0;
             RestaurantName = "xyz";
-            Address = "Nj,Usa";
+            Address1 = "123 main street";
+            city = "Morris plains";
+            state = "NJ";
             ZipCode = "07950";
             CostType = "$$";
             Website = "www.xyz.com";
+            ContactNo = 1234567890;
             //Reviews = new List<ReviewModelClass>();
 
         }
         public int RestaurantId { get; set; }
-        private string restaurantName; 
-        public string RestaurantName
+       
+        private string? restaurantName;
+        public string? RestaurantName
         {
-            get => restaurantName;
+            get { return restaurantName; }
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -26,14 +30,16 @@
                 }
                 else
                 {
-                    throw new Exception("Restaurant Name can not be empty");
+                    throw new Exception("First Name can not be empty");
                 }
             }
 
         }
-        public string Address { get; set; }
-        private string zipCode;
-        public string ZipCode
+        public string city { get; set; }
+        public string state { get; set; }
+        public string Address1 { get; set; }
+        private string? zipCode;
+        public string? ZipCode
         {
             get => zipCode;
             set
@@ -52,6 +58,27 @@
         public string CostType { get; set; }
         //public List<ReviewModelClass> Reviews { get;}
         public string Website { get; set; }
+       
+        private decimal contactNo;
+        public decimal ContactNo
+        {
+            get
+            {
+                return contactNo;
+            }
+            set
+            {
+                if (value.ToString().Length == 10)
+                {
+                    contactNo = value;
+                }
+                else
+                {
+                    throw new Exception("Enter valid Contact No.");
+                }
+
+            }
+        }
 
     }
 }

@@ -43,7 +43,7 @@ namespace RestaurantBl
             else if (choice == "User")
             {
                 UserRepository userRepository = new UserRepository();
-               var allUders= userRepository.GetAllUsers();
+               var allUders= userRepository.GetItemFromDB();
                
                 foreach (var user in allUders)
                 {

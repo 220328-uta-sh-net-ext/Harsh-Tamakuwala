@@ -14,7 +14,7 @@ namespace RestaurantUi
         public string SignupUser(string choice)
         {
             Console.WriteLine("\n----------Register Now----------\n");
-            var result = AddUserClass.AddUser();
+            var result = AddUser();
             Console.WriteLine(result);
             // userChoice = "Registered user";
             if (result == "User Added!!!")
@@ -91,7 +91,7 @@ namespace RestaurantUi
         contactSection:
             try
             {
-                userModel.ContactNo = Convert.ToInt32(Console.ReadLine());
+                userModel.ContactNo = Convert.ToDecimal(Console.ReadLine());
             }
             catch (Exception)
             {
@@ -99,7 +99,7 @@ namespace RestaurantUi
                 goto contactSection;
             }
             UserRepository user = new UserRepository();
-            var result = user.AddUserToDB(userModel);
+            var result = user.AddItemToDB(userModel);
            
             if(result == "User Added!!!")
             {

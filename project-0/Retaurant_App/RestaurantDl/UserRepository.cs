@@ -1,10 +1,10 @@
-﻿using RestaurantModel;
-using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using RestaurantModel;
 using System.IO;
 
 namespace RestaurantDl
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IItemRepository<UserModelClass>
     {
         private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
         private readonly string connectionString;
@@ -14,7 +14,7 @@ namespace RestaurantDl
             
             connectionString = File.ReadAllText(connectionStringFilePath);
         }
-        public List<UserModelClass> GetAllUsers()
+        public List<UserModelClass> GetItemFromDB()
         {
             string commandString = "SELECT * FROM Users";
 
@@ -41,10 +41,11 @@ namespace RestaurantDl
             //{
             //    Console.WriteLine(user.FirstName);
             //}
+            connection.Close();
             return users;
         }
 
-        public string AddUserToDB(UserModelClass user)
+        public string AddItemToDB(UserModelClass item)
         {
             
             string result = "error";
@@ -56,11 +57,11 @@ namespace RestaurantDl
                 
                 connection.Open();
                 using SqlCommand command = new(commandString, connection);
-                command.Parameters.AddWithValue("@fname", user.FirstName);
-                command.Parameters.AddWithValue("@lname", user.LastName);
-                command.Parameters.AddWithValue("@email", user.EmailId);
-                command.Parameters.AddWithValue("@pass", user.Password);
-                command.Parameters.AddWithValue("@contact", user.ContactNo);
+                command.Parameters.AddWithValue("@fname", item.FirstName);
+                command.Parameters.AddWithValue("@lname", item.LastName);
+                command.Parameters.AddWithValue("@email", item.EmailId);
+                command.Parameters.AddWithValue("@pass", item.Password);
+                command.Parameters.AddWithValue("@contact", item.ContactNo);
                
                var success= command.ExecuteNonQuery();
                 Console.WriteLine(success);

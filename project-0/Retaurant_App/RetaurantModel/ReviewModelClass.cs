@@ -6,11 +6,12 @@ namespace RestaurantModel
         public ReviewModelClass()
         {
             ReviewId = 0;
-            RestaurantName = "abc";
+            RestaurantId = 0;         
             Comments = "";
             UserName = "john Pierson";
             rating = 5;
             ReviewTime = DateTime.Now;
+            RestaurantName = "";
 
         }
         public int ReviewId { get; set; }
@@ -18,8 +19,8 @@ namespace RestaurantModel
        
         public string UserName { get; set; }
 
-        private string comment;
-        public string Comments { get => comment;
+        private string? comment;
+        public string? Comments { get => comment;
 
             set {
                 if (value.Length < 50)
@@ -38,7 +39,7 @@ namespace RestaurantModel
         public int Rating {
             get { return rating; }
             set {
-                if(value>1 && value < 5)
+                if(value>0 && value <= 5)
                 {
                     rating = value;
                 }
@@ -49,21 +50,22 @@ namespace RestaurantModel
             }
         }
         
-        private string restaurantName;
-        public string RestaurantName {
-            get => restaurantName;
+        private int restaurantId;
+        public int RestaurantId {
+            get => restaurantId;
             set
             {
-                if (!string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value.ToString()))
                 {
-                    restaurantName = value;
+                    restaurantId = value;
                 }
                 else
                 {
-                    throw new Exception("Restaurant name cannot be empty!");
+                    throw new Exception("Restaurant Id cannot be empty!");
                 }
             }
         }
+        public string? RestaurantName { get; set; }
 
 
     }

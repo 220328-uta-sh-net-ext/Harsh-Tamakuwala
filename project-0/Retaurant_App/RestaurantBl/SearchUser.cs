@@ -13,7 +13,7 @@ namespace RestaurantBl
 		{
 			Console.Clear();
 			UserRepository userRepository = new UserRepository();
-			List<UserModelClass> userList = userRepository.GetAllUsers();
+			List<UserModelClass> userList = userRepository.GetItemFromDB();
 			search:
 			Console.Write("Search Users : ");
 			string? searchValue= Console.ReadLine();
@@ -31,20 +31,27 @@ namespace RestaurantBl
 										  user.EmailId.ToLower().Contains(searchValue.ToLower()) ||
 										  user.ContactNo.ToString().Contains(searchValue)
 									select user;
-
-				foreach (var user in filteredUsers.Select((value, index) => new { value, index }))
-				{
-					Console.WriteLine("\n---------------------------\n");
-					Console.WriteLine("User: " + (user.index + 1));
-					Console.WriteLine("First Name: " + user.value.FirstName);
-					Console.WriteLine("Last Name: " + user.value.LastName);
-					Console.WriteLine("EmailId: " + user.value.EmailId);
-					Console.WriteLine("Contact NO: " + user.value.ContactNo);
-					if ((user.index + 1) == filteredUsers.Count())
+				if (filteredUsers.Count()>0) {
+					foreach (var user in filteredUsers.Select((value, index) => new { value, index }))
 					{
 						Console.WriteLine("\n---------------------------\n");
-					}
+						Console.WriteLine("User: " + (user.index + 1));
+						Console.WriteLine("First Name: " + user.value.FirstName);
+						Console.WriteLine("Last Name: " + user.value.LastName);
+						Console.WriteLine("EmailId: " + user.value.EmailId);
+						Console.WriteLine("Contact NO: " + user.value.ContactNo);
+						if ((user.index + 1) == filteredUsers.Count())
+						{
+							Console.WriteLine("\n---------------------------\n");
+						}
 
+                    }
+				}
+				else
+				{
+					Console.WriteLine("\n---------------------------\n");
+					Console.WriteLine("User not Found!!");
+					Console.WriteLine("\n---------------------------\n");
 				}
 			}
         }
