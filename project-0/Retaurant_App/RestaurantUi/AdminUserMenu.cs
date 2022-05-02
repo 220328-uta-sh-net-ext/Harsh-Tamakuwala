@@ -7,7 +7,9 @@ namespace RestaurantUi
     public class AdminUserMenu : IMenu
     {
 
-       
+       /// <summary>
+       /// This will display the menu as per user or admin choice
+       /// </summary>
 
         public void Display()
         {
@@ -34,17 +36,21 @@ namespace RestaurantUi
             else if (RestaurantBl.Globals.userChoice == "Registered user" && RestaurantBl.Globals.choice == "User")
             {
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("Press <6> Search restaurant");
-                Console.WriteLine("Press <5> Calculate reviews’ average rating for each restaurant");
-                Console.WriteLine("Press <4> View reviews of restaurants as a user");
-                Console.WriteLine("Press <3> View details of restaurants as a user");
-                Console.WriteLine("Press <2> Add reviews to a restaurant as a user");
-                Console.WriteLine("Press <1> Display details of a restaurant for user");
+               // Console.WriteLine("Press <1> Display details of a restaurant for user");
+                Console.WriteLine("Press <6> Choose restaurant to eat");
+                Console.WriteLine("Press <5> Search restaurant");
+                Console.WriteLine("Press <4> Calculate reviews’ average rating for each restaurant");
+                Console.WriteLine("Press <3> View reviews of restaurants as a user");
+                Console.WriteLine("Press <2> View details of restaurants as a user");
+                Console.WriteLine("Press <1> Add reviews to a restaurant as a user");
                 Console.WriteLine("Press <0> EXIT");
             }
 
         }
-
+        /// <summary>
+        /// this will allow user the to select as per menu
+        /// </summary>
+        /// <returns>it will return the string as per selection</returns>
         public string UserChoice()
         {
             string? userInput = Console.ReadLine();
@@ -85,7 +91,7 @@ namespace RestaurantUi
                     case "1":
                         return "AddNewRestaurant";
                     case "2":
-                        return "DisplayRestaurantDetail";
+                        return "ViewRestaurantDetails";
                     case "3":
                         return "SearchUserAsAdmin";
                     default:
@@ -102,17 +108,19 @@ namespace RestaurantUi
                     case "0":
                         return "Exit";
                     case "1":
-                        return "DisplayRestaurantDetail";
+                        return "AddRestaurantReview";
                     case "2":
-                        return "AddUserReview";
-                    case "3":
                         return "ViewRestaurantDetails";
-                    case "4":
+                    case "3":
                         return "ViewRestaurantReview";
-                    case "5":
+                    case "4":
                         return "CalculateAllRestaurantAvgRating";
-                    case "6":
+                    case "5":
                         return "SearchRestaurant";
+                    case "6":
+                        return "ChooseRestaurant";
+                    case "7":
+                        return "DisplayRestaurantDetail";
                     default:
                         Console.WriteLine("Please input a valid response");
                         Console.WriteLine("Please press <enter> to continue");

@@ -1,8 +1,9 @@
 ﻿using System;
 namespace RestaurantModel
 {
+    
 	public class LoginModelClass
-	{
+    {
         public LoginModelClass()
         {
             EmailId = "";

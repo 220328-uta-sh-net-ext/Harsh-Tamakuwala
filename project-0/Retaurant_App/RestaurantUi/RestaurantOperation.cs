@@ -10,7 +10,9 @@ namespace RestaurantBl
         public RestaurantOperation()
         {
         }
-
+        /// <summary>
+        /// this will ask for input for searching the restaurant 
+        /// </summary>
         public static void SearchRestaurant()
         {
             Console.WriteLine("Search restaurant by name, address, phoneNo and cost type\n");
@@ -28,12 +30,125 @@ namespace RestaurantBl
                 SearchRestaurantBl.SearchRestaurantBL(searchValue);
             }
         }
-
+        /// <summary>
+        /// this method will display the avarage rating of each restaurant
+        /// </summary>
         public static void AvgRatingOfRestaurants()
         {
-            throw new NotImplementedException();
-        }
+            ReviewRepository reviewRepository = new ReviewRepository();
+            var avgRating= reviewRepository.getAvgReview();
 
+            RestaurantRepository restaurantRepository = new RestaurantRepository();
+            var restaurants = restaurantRepository.GetItemFromDB();
+            foreach (var rate in avgRating.Select((value, index) => new { value, index }))
+            {
+                Console.WriteLine("\n---------------------------\n");
+                Console.WriteLine("          Restaurant: " + (rate.index + 1));
+                Console.WriteLine("");
+                foreach (var restaurant in restaurants)
+                {
+                    
+                    if (rate.value.RestaurantId == restaurant.RestaurantId)
+                   {
+                        if (rate.value.Rating != "0")
+                        {
+                            Console.WriteLine("Average Rating:       " + rate.value.Rating);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Average Rating:       " + "Not Rated yet");
+                        }
+                        Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
+                        Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
+                        Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
+                        Console.WriteLine("Restaurant Cost Type: " + restaurant.CostType);
+                        Console.WriteLine("Restaurant Website:   " + restaurant.Website);
+                        Console.WriteLine("Restaurant PhoneNo:   " + restaurant.ContactNo);
+                    }
+                }
+                if ((rate.index + 1) == restaurants.Count())
+                {
+                    Console.WriteLine("\n---------------------------\n");
+                }
+            }
+            //foreach(var restaurant in restaurants.Select((value, index) => new { value, index }))
+            //{
+            //    Console.WriteLine("\n---------------------------\n");
+            //    Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
+            //    Console.WriteLine("");
+            //    foreach (var rate in avgRating)
+            //    {
+            //        if(rate.RestaurantId == restaurant.value.RestaurantId)
+            //        {
+            //            if (rate.Rating != "0")
+            //            {
+            //                Console.WriteLine("Average Rating:       " + rate.Rating);
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine("Average Rating:       " + "Not Rated yet");
+            //            }
+            //        }
+            //    }
+            //    Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
+            //    Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city + ", " + restaurant.value.state);
+            //    Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
+            //    Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
+            //    Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);
+            //    Console.WriteLine("Restaurant PhoneNo:   " + restaurant.value.ContactNo);
+            //    if ((restaurant.index + 1) == restaurants.Count())
+            //    {
+            //        Console.WriteLine("\n---------------------------\n");
+            //    }
+
+            //}
+
+        }
+        /// <summary>
+        /// it will show haighest rating restaurant to choose
+        /// </summary>
+        internal static void ChooseRestaurant()
+        {
+            ReviewRepository reviewRepository = new ReviewRepository();
+            var avgRating = reviewRepository.getAvgReview();
+
+            RestaurantRepository restaurantRepository = new RestaurantRepository();
+            var restaurants = restaurantRepository.GetItemFromDB();
+            foreach (var rate in avgRating.Select((value, index) => new { value, index }))
+            {
+                Console.WriteLine("\n---------------------------\n");
+                Console.WriteLine("You should try this restaurant next time as it has highest rating!!\n");
+                foreach (var restaurant in restaurants)
+                {
+
+                    if (rate.value.RestaurantId == restaurant.RestaurantId)
+                    {
+                        if (rate.value.Rating != "0")
+                        {
+                            Console.WriteLine("Average Rating:       " + rate.value.Rating);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Average Rating:       " + "Not Rated yet");
+                        }
+                        Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
+                        Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
+                        Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
+                        Console.WriteLine("Restaurant Cost Type: " + restaurant.CostType);
+                        Console.WriteLine("Restaurant Website:   " + restaurant.Website);
+                        Console.WriteLine("Restaurant PhoneNo:   " + restaurant.ContactNo);
+                    }
+                }
+               
+                    Console.WriteLine("\n---------------------------\n");
+               
+                break;
+            }
+
+        }
+        /// <summary>
+        /// this methos will display reviews of every restaurant
+        /// </summary>
         public static void ViewReviews()
         {
             ReviewRepository reviewRepository = new ReviewRepository();
@@ -56,7 +171,9 @@ namespace RestaurantBl
 
             }
         }
-
+        /// <summary>
+        /// this methos will display details of every restaurant
+        /// </summary>
         public static void ViewRestaurantDetails()
         {
             RestaurantRepository restaurantRepository = new RestaurantRepository();
@@ -81,45 +198,83 @@ namespace RestaurantBl
             }
         }
 
+        /// <summary>
+        /// this method will ask for input for adding the review
+        /// </summary>
         public static void AddReview()
         {
-            ReviewModelClass reviewModel = new ReviewModelClass();
-            int reviewNo = reviewModel.ReviewId;
-            reviewNo += 1;
-            reviewModel.ReviewId = reviewNo;
-            //get the list of resaturant name and display it to select the restaurant to review
-            Console.WriteLine("Please Enter your Name:");
-            reviewModel.UserName = Console.ReadLine();
-            Console.WriteLine("Please Enter restaurant Code from the list:");
-            reviewModel.RestaurantId = Convert.ToInt32(Console.ReadLine());
+            RestaurantRepository restaurantRepository = new RestaurantRepository();
+            var restaurants = restaurantRepository.GetItemFromDB();
+            Console.WriteLine("\n---------------------------\n");
+            Console.WriteLine("Restaurant Reference No.  Restaurant Name");
+            foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
+            {
 
-            Console.WriteLine("Please give a rating between 1 to 5:");
-        ratingSection:
+                Console.WriteLine(restaurant.value.RestaurantId + "                         " +restaurant.value.RestaurantName  );
 
+            }
+            Console.WriteLine("");
+           ReviewModelClass reviewModel = new ReviewModelClass();
             try
             {
-                reviewModel.Rating = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Please Enter restaurant Reference No. from the list:");
+                reviewModel.RestaurantId = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Please give a rating between 1 to 5:");
+            ratingSection:
+
+                try
+                {
+                    reviewModel.Rating = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please enter a rating between 1 to 5 only!!");
+                    goto ratingSection;
+                }
+
+                Console.WriteLine("Please enter comment:");
+            commentSection:
+                try
+                {
+                    reviewModel.Comments = Console.ReadLine();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("50 characters only!!");
+                    goto commentSection;
+                }
+                reviewModel.UserName = Globals.userName;
+                reviewModel.ReviewTime = DateTime.Now;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Please enter a rating between 1 to 5 only!!");
-                goto ratingSection;
+               
+                    Console.WriteLine("Something went wrong, please try again!!");
+               
             }
 
-            Console.WriteLine("Please enter comment:");
-        commentSection:
-            try
+            ReviewRepository review = new ReviewRepository();
+            var result = review.AddItemToDB(reviewModel);
+
+            if (result == "Review Added!!!")
             {
-                reviewModel.Comments = Console.ReadLine();
+                Log.Information("Review successfully added");
+                Console.WriteLine("\nReview Added!!!\n");
             }
-            catch (Exception)
+            else if(result.Contains("Violation of UNIQUE KEY constrain"))
             {
-                Console.WriteLine("50 characters only!!");
-                goto commentSection;
+                Console.WriteLine("\nYou have already rated this restaurant!!\n");
             }
-            reviewModel.ReviewTime = DateTime.Now;
+            else
+            {
+                Log.Information(" faild : ", result.ToString());
+                Console.WriteLine("\nSomething went wrong, please try again!!:\n");
+            }
 
         }
+
+
 
 
 
@@ -147,10 +302,7 @@ namespace RestaurantBl
             }
         }
 
-        public static void SearchUserAsAdmin()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
 

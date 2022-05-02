@@ -9,6 +9,10 @@ namespace RestaurantBl
         public SearchRestaurantBl()
         {
         }
+        /// <summary>
+        /// this method will search for the restaurant from the given value in name from the database and will display the result
+        /// </summary>
+        /// <param name="name"></param>
         public static void SearchRestaurantBL(string name)
         {
             
@@ -48,7 +52,7 @@ namespace RestaurantBl
             else
             {
                 Console.WriteLine("\n---------------------------\n");
-                Console.WriteLine("Restaurant0 not Found!!");
+                Console.WriteLine("Restaurant not Found!!");
                 Console.WriteLine("\n---------------------------\n");
             }
 

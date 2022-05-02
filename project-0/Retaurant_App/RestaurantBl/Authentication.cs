@@ -64,7 +64,12 @@ namespace RestaurantBl
             }
             return "Login Failed";
         }
-
+        /// <summary>
+        /// It will ask input for emailid and password to check for login as admin or user
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <returns>it will return wether login is successfull or not as a string format
+        /// </returns>
 
         public string AskInput(string choice)
         {

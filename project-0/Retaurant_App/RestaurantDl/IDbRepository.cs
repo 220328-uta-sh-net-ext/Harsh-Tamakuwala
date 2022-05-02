@@ -2,8 +2,8 @@
 using RestaurantModel;
 namespace RestaurantDl
 {
-	public interface IItemRepository<T>
-	{
+    public interface IItemRepository<T>
+    {
         /// <summary>
         /// Add a new item to the database
         /// </summary>
@@ -16,6 +16,13 @@ namespace RestaurantDl
         /// <returns>Returns a collection of item as Generic List</returns>
         List<T> GetItemFromDB();
     }
+    public interface IAvgReviewRepository{
+        /// <summary>
+        /// it will get avg rating for all the restaurant;
+        /// </summary>
+        List<AvgRating> getAvgReview(); 
+}
+
     
 }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 namespace RestaurantModel
 {
+   
     public class ReviewModelClass
     {
         public ReviewModelClass()
         {
             ReviewId = 0;
-            RestaurantId = 0;         
+            RestaurantId = 0;
             Comments = "";
             UserName = "john Pierson";
             rating = 5;
@@ -65,6 +66,9 @@ namespace RestaurantModel
                 }
             }
         }
+
+       
+
         public string? RestaurantName { get; set; }
 
 

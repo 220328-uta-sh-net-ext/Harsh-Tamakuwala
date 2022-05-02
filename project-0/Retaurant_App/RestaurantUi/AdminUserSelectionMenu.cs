@@ -7,8 +7,10 @@ namespace RestaurantUi
 		public AdminUserSelectionMenu()
 		{
 		}
-       
-      
+
+        /// <summary>
+        /// This will display the menu for chosing user or admin
+        /// </summary>
         public void Display()
         {
            

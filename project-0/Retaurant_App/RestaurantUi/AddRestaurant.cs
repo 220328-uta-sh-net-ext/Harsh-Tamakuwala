@@ -9,6 +9,9 @@ namespace RestaurantBl
         public AddRestaurant()
         {
         }
+        /// <summary>
+        /// this method will add restaurant in database by getting the input from the admin 
+        /// </summary>
         RestaurantRepository restaurantRepository = new RestaurantRepository();
         RestaurantModelClass restaurantModelClass = new RestaurantModelClass();
 

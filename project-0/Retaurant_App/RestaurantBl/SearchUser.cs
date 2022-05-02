@@ -9,6 +9,9 @@ namespace RestaurantBl
 		public SearchUser()
 		{
 		}
+		/// <summary>
+        /// it will ask for input to search a registered user in the database and will display the details of that user
+        /// </summary>
 		public static void SearchUserAsAdmin()
 		{
 			Console.Clear();

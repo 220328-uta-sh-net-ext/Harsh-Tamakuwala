@@ -6,7 +6,9 @@ namespace RestaurantUi
 		public RegisteredNewUserSelectionMenu()
 		{
 		}
-
+        /// <summary>
+        /// this will display menu for new user or registered User
+        /// </summary>
         public void Display()
         {
             Console.WriteLine("\nAre you a New user or a Registered user?");

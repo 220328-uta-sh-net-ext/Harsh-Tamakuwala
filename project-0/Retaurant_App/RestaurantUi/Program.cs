@@ -25,8 +25,13 @@ if (result == "Login Successful")
 
         switch (ans)
         {
+            case "ChooseRestaurant":
+                Console.Clear();
+                RestaurantOperation.ChooseRestaurant();
+                Log.Information("Choosed next restaurant");
+                break;
+
             case "AddNewRestaurant":
-                //call SearchPokemon method
                 Console.Clear();
                 AddRestaurant addRestaurant = new AddRestaurant();
                 addRestaurant.AddNewRestaurant();
@@ -34,51 +39,42 @@ if (result == "Login Successful")
                 break;
 
             case "SearchRestaurant":
-                //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.SearchRestaurant();
                 Log.Information("Searched Restaurant.");
                 break;
 
             case "CalculateAllRestaurantAvgRating":
-                //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.AvgRatingOfRestaurants();
                 Log.Information("Calculated avg rating.");
-                Console.WriteLine("CalculateAllRestaurantAvgRating() Method implementation is in progress....");
                 break;
 
             case "ViewRestaurantReview":
-                //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.ViewReviews();
                 Log.Information("Viewed Restaurant review.");  
                 break;
 
             case "ViewRestaurantDetails":
-                //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.ViewRestaurantDetails();
                 Log.Information("Viewed Restaurant Detail.");  
                 break;
 
-            case "AddUserReview":
-                //call SearchPokemon method
+            case "AddRestaurantReview":
                 Console.Clear();
                 RestaurantOperation.AddReview();
                 Log.Information("review added successfully.");
-                Console.WriteLine("AddUserReview() Method implementation is in progress....");
                 break;
 
             case "DisplayRestaurantDetail":
-                //call SearchPokemon method
                 Console.Clear();
                 RestaurantOperation.DisplayRestaurantDetail();
                 Log.Information("Displayed Restaurant Detail.");
                 break;
 
             case "SearchUserAsAdmin":
-                //call SearchPokemon method
                 Console.Clear();
                 Log.Information("searched user.");
                 SearchUser.SearchUserAsAdmin();

@@ -10,6 +10,9 @@ namespace RestaurantUi
         public AddUserClass()
         {
         }
+        /// <summary>
+        /// this method will add users in database by getting the input from the admin 
+        /// </summary>
         Authentication authentication = new Authentication();
         public string SignupUser(string choice)
         {
