@@ -13,7 +13,8 @@ namespace RestaurantUi
         /// <summary>
         /// this method will add users in database by getting the input from the admin 
         /// </summary>
-        Authentication authentication = new Authentication();
+        // Authentication authentication = new Authentication();
+        LoginClass login = new();
         public string SignupUser(string choice)
         {
             Console.WriteLine("\n----------Register Now----------\n");
@@ -22,7 +23,7 @@ namespace RestaurantUi
             // userChoice = "Registered user";
             if (result == "User Added!!!")
             {
-                var loginResult = authentication.AskInput(choice);
+                var loginResult = login.AskInput(choice);
 
                 return loginResult;
             }
@@ -36,11 +37,11 @@ namespace RestaurantUi
         public static string AddUser()
         {
             UserModelClass userModel = new UserModelClass();
-            
+
 
             Console.Write("Please Enter First Name: ");
             userModel.FirstName = Console.ReadLine();
-            
+
             Console.Write("Please Enter Last Name: ");
             userModel.LastName = Console.ReadLine();
             //Globals.userName = userModel.FirstName + " " + userModel.LastName;
@@ -101,24 +102,14 @@ namespace RestaurantUi
                 Console.WriteLine("Please enter valid contact number!!");
                 goto contactSection;
             }
-            UserRepository user = new UserRepository();
-            var result = user.AddItemToDB(userModel);
-           
-            if(result == "User Added!!!")
-            {
-                Log.Information("User successfully added");
-                return "User Added!!!";
-            }
-            else
-            {
-                Log.Information(" faild : ", result.ToString());
-                return result.ToString();
-            }
+           var result = AddUserLogic.addUserMethod(userModel);
 
             //Console.WriteLine(userModel.FirstName);
-           
+
+            return result;
         }
-       
+
+        
     }
 }
 

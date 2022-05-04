@@ -12,7 +12,7 @@ namespace RestaurantBl
         /// <summary>
         /// this method will add restaurant in database by getting the input from the admin 
         /// </summary>
-        RestaurantRepository restaurantRepository = new RestaurantRepository();
+       
         RestaurantModelClass restaurantModelClass = new RestaurantModelClass();
 
         public void AddNewRestaurant()
@@ -60,7 +60,7 @@ namespace RestaurantBl
 
         contactSection:
             Console.Write("Restaurant Contact No: ");
-       
+
             try
             {
                 restaurantModelClass.ContactNo = Convert.ToDecimal(Console.ReadLine());
@@ -71,18 +71,10 @@ namespace RestaurantBl
                 goto contactSection;
             }
 
-            var result = restaurantRepository.AddItemToDB(restaurantModelClass);
-            if (result == "Restaurant Added!!!")
-            {
-                Log.Information("Restaurant successfully added");
-                Console.WriteLine("\nRestaurant Added!!!\n");
-            }
-            else
-            {
-                Log.Information(" faild : ", result.ToString());
-                Console.WriteLine("\nSometing went wrong. please try again!!\n");
-            }
+            AddRestaurantLogic.AddRestaurantMethod(restaurantModelClass);
         }
+
+       
     }
 }
 

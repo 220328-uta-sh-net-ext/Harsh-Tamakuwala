@@ -21,9 +21,16 @@ namespace RestaurantUi
 
         public string UserChoice()
         {
-            int mainChoice = Convert.ToInt32(Console.ReadLine());
-            
-            switch(mainChoice)
+            //int mainChoice = Convert.ToInt32(Console.ReadLine());
+            string mainChoice = Console.ReadLine();
+            int choice;
+            if(int.TryParse(mainChoice,out choice)!= true)
+            {
+                Console.Clear();
+                return "mainMenu";
+            }
+           
+            switch(choice)
             {
                 case 0:
                     Environment.Exit(0);

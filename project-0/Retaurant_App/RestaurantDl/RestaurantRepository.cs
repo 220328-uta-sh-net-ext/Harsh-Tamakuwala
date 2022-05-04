@@ -15,40 +15,53 @@ namespace RestaurantDl
         }
         public List<RestaurantModelClass> GetItemFromDB()
         {
-
-            string commandString = "SELECT * FROM Restaurants";
+            string result = "error";
             using SqlConnection connection = new(connectionString);
             var restaurants = new List<RestaurantModelClass>();
-
-            connection.Open();
-            using SqlCommand command = new(commandString, connection);
-
-            using SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                restaurants.Add(new RestaurantModelClass
+                string commandString = "SELECT * FROM Restaurants";
+              
+               
+
+                connection.Open();
+                using SqlCommand command = new(commandString, connection);
+
+                using SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    RestaurantId = reader.GetInt32(0),
-                    RestaurantName = reader.GetString(1),
-                    Address1 = reader.GetString(2),
-                    city = reader.GetString(3),
-                    state = reader.GetString(4),
-                    ZipCode = reader.GetString(5),
-                    CostType = reader.GetString(6),
-                    Website = reader.GetString(7),
-                    ContactNo = reader.GetDecimal(8),
+                    restaurants.Add(new RestaurantModelClass
+                    {
+                        RestaurantId = reader.GetInt32(0),
+                        RestaurantName = reader.GetString(1),
+                        Address1 = reader.GetString(2),
+                        city = reader.GetString(3),
+                        state = reader.GetString(4),
+                        ZipCode = reader.GetString(5),
+                        CostType = reader.GetString(6),
+                        Website = reader.GetString(7),
+                        ContactNo = reader.GetDecimal(8),
 
-                });
+                    });
 
+                }
+                //foreach (var restaurant in restaurants)
+                //{
+                //    Console.WriteLine(restaurant.RestaurantName);
+                //}
+
+                return restaurants;
             }
-            //foreach (var restaurant in restaurants)
-            //{
-            //    Console.WriteLine(restaurant.RestaurantName);
-            //}
-
+            catch(Exception ex)
+            {
+                result = ex.Message;
+            }
+            finally
+            {
+                connection.Close();
+            }
             return restaurants;
-
         }
 
 

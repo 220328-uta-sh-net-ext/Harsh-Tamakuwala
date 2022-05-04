@@ -16,7 +16,8 @@ namespace RestaurantUi
 
         public string getinitiated()
         {
-            Authentication authentication = new Authentication();
+            
+            LoginClass login = new();
             RegisteredNewUserSelectionMenu registeredNewUserSelectionMenu = new RegisteredNewUserSelectionMenu();
 
                 Console.WriteLine("Welcome to Restaurant");
@@ -39,7 +40,7 @@ namespace RestaurantUi
                     registeredNewUserSelectionMenu.Display();
                     Globals.userChoice = registeredNewUserSelectionMenu.UserChoice();
                     if (Globals.userChoice == "Registered user"){
-                        var result = authentication.AskInput(Globals.choice);
+                        var result = login.AskInput(Globals.choice);
                         return result;
                     }else if(Globals.userChoice == "New user")
                     {
@@ -57,7 +58,7 @@ namespace RestaurantUi
                 }
                 else if (Globals.choice == "Admin")
                 {
-                    var result = authentication.AskInput(Globals.choice);
+                    var result = login.AskInput(Globals.choice);
                     return result;
                 }
             return "Failed";
