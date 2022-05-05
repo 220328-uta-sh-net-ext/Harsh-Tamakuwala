@@ -200,11 +200,11 @@ namespace RestaurantBl
             foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
             {
 
-                Console.WriteLine(restaurant.value.RestaurantId + "                         " +restaurant.value.RestaurantName  );
+                Console.WriteLine(restaurant.value.RestaurantId + "                         " + restaurant.value.RestaurantName);
 
             }
             Console.WriteLine("");
-           ReviewModelClass reviewModel = new ReviewModelClass();
+            ReviewModelClass reviewModel = new ReviewModelClass();
             try
             {
                 Console.WriteLine("Please Enter restaurant Reference No. from the list:");
@@ -239,30 +239,16 @@ namespace RestaurantBl
             }
             catch (Exception e)
             {
-               
-                    Console.WriteLine("Something went wrong, please try again!!");
-               
+
+                Console.WriteLine("Something went wrong, please try again!!");
+
             }
 
-            ReviewRepository review = new ReviewRepository();
-            var result = review.AddItemToDB(reviewModel);
-
-            if (result == "Review Added!!!")
-            {
-                Log.Information("Review successfully added");
-                Console.WriteLine("\nReview Added!!!\n");
-            }
-            else if(result.Contains("Violation of UNIQUE KEY constrain"))
-            {
-                Console.WriteLine("\nYou have already rated this restaurant!!\n");
-            }
-            else
-            {
-                Log.Information(" faild : ", result.ToString());
-                Console.WriteLine("\nSomething went wrong, please try again!!:\n");
-            }
+            AddReviewLogic.AddReviewMethod(reviewModel);
 
         }
+
+        
 
 
 
@@ -292,7 +278,7 @@ namespace RestaurantBl
         //    }
         //}
 
-        
+
     }
 }
 
