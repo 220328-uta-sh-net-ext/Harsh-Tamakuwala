@@ -13,7 +13,7 @@
             CostType = "$$";
             Website = "www.xyz.com";
             ContactNo = 1234567890;
-            rating = "not rated";
+            rating =0;
             //Reviews = new List<ReviewModelClass>();
 
         }
@@ -80,7 +80,7 @@
 
             }
         }
-        public string? rating { get; set; }
+        public int? rating { get; set; }
 
     }
 }

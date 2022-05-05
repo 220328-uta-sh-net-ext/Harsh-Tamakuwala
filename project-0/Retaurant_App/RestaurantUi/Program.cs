@@ -44,11 +44,11 @@ if (result == "Login Successful")
                 Log.Information("Searched Restaurant.");
                 break;
 
-            case "CalculateAllRestaurantAvgRating":
-                Console.Clear();
-                RestaurantOperation.AvgRatingOfRestaurants();
-                Log.Information("Calculated avg rating.");
-                break;
+            //case "CalculateAllRestaurantAvgRating":
+            //    Console.Clear();
+            //    RestaurantOperation.AvgRatingOfRestaurants();
+            //    Log.Information("Calculated avg rating.");
+            //    break;
 
             case "ViewRestaurantReview":
                 Console.Clear();
@@ -68,11 +68,11 @@ if (result == "Login Successful")
                 Log.Information("review added successfully.");
                 break;
 
-            case "DisplayRestaurantDetail":
-                Console.Clear();
-                RestaurantOperation.DisplayRestaurantDetail();
-                Log.Information("Displayed Restaurant Detail.");
-                break;
+            //case "DisplayRestaurantDetail":
+            //    Console.Clear();
+            //    RestaurantOperation.DisplayRestaurantDetail();
+            //    Log.Information("Displayed Restaurant Detail.");
+            //    break;
 
             case "SearchUserAsAdmin":
                 Console.Clear();

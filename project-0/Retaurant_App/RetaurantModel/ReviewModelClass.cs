@@ -36,8 +36,8 @@ namespace RestaurantModel
             }
         }
 
-        private int rating;
-        public int Rating {
+        private double rating;
+        public double Rating {
             get { return rating; }
             set {
                 if(value>0 && value <= 5)

@@ -30,7 +30,7 @@ namespace RestaurantDl
                 {
                     ReviewId = reader.GetInt32(0),
                     RestaurantId = reader.GetInt32(1),
-                    Rating = reader.GetInt32(2),
+                    Rating = reader.GetDouble(2),
                     Comments = reader.GetString(3),
                     UserName = reader.GetString(4),
                     ReviewTime = reader.GetDateTime(5),
@@ -97,7 +97,7 @@ namespace RestaurantDl
             {
                 avgRatingRest.Add(new AvgRating
                 {
-                    Rating = reader.IsDBNull(0) ? "0" : reader.GetInt32(0).ToString(),
+                    Rating = reader.IsDBNull(0) ? "0" : reader.GetDouble(0).ToString(),
                     RestaurantId = reader.GetInt32(1),
                 });
             }
