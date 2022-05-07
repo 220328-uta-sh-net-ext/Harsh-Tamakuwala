@@ -79,7 +79,7 @@
 - Provide different functionalities like filtering, sorting, grouping, aggregation, concatenation, etc.
 	- Where
 		- Filtering operation
-		- Returns values from the collection based on a predicate functio
+		- Returns values from the collection based on a predicate function
 	- Oftype
 		- Filtering operation
 		- Returns values from the collection based on a specified type
