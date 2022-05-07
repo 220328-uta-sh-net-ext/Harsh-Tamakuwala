@@ -1,4 +1,4 @@
-﻿# LINQ - Sean Letts Notes
+﻿# LINQ 
 ## What is LINQ
 - LINQ = Language-Integrated Query
 - Uniform querry syntax Integrated in C# & VB.NET to Query Data Sources
