@@ -1,10 +1,10 @@
 ﻿using Linqexample.model;
 
 IList<Student> studentList = new List<Student>() { 
-    new Student() { StudentID = 1, StudentName = "John", StandardID =1 },
-    new Student() { StudentID = 2, StudentName = "Moin", StandardID =1 },
-    new Student() { StudentID = 3, StudentName = "Bill", StandardID =2 },
-    new Student() { StudentID = 4, StudentName = "Ram",  StandardID =2 },
+    new Student() { StudentID = 1, StudentName = "John", StandardID =1,Age = 18  },
+    new Student() { StudentID = 2, StudentName = "Moin", StandardID =1 ,Age = 20 },
+    new Student() { StudentID = 3, StudentName = "Bill", StandardID =2 ,Age = 25 },
+    new Student() { StudentID = 4, StudentName = "Ram",  StandardID =2 ,Age = 19 },
     new Student() { StudentID = 5, StudentName = "Ron" } 
 };
 
@@ -13,98 +13,84 @@ IList<Standard> standardList = new List<Standard>() {
     new Standard(){ StandardID = 2, StandardName="Standard 2"},
     new Standard(){ StandardID = 3, StandardName="Standard 3"}
 };
-//Where caluse
-var standard = from s in studentList
-							  where s.StandardID == 2
-							  select s;
-System.Console.WriteLine("\n------WHERE-----");
-Console.WriteLine("Students who is having standard ID: 2");
-						  
-foreach(Student std in standard){			
-			Console.WriteLine(std.StudentName);
-		}
+// checks whether all the students are teenagers    
+bool areAllStudentsTeenAger = studentList.All(s => s.Age > 12 && s.Age < 20);
+System.Console.WriteLine("----ALL----");
+System.Console.WriteLine("checks whether all the students are teenagers");
+Console.WriteLine(areAllStudentsTeenAger);
 
 
-//INNER JOIN
-var innerJoin = studentList.Join(// outer sequence 
-                      standardList,  // inner sequence 
-                      student => student.StandardID,    // outerKeySelector
-                      standard => standard.StandardID,  // innerKeySelector
-                      (student, standard) => new  // result selector
-                                    {
-                                        StudentName = student.StudentName,
-                                        StandardName = standard.StandardName
-                                    });
-System.Console.WriteLine("\n------inner Join-----");
-foreach (var obj in innerJoin)
-		{
-			
-			Console.WriteLine("{0} - {1}", obj.StudentName, obj.StandardName);
-		}
+// checks whether any the students are teenagers  
+bool isAnyStudentTeenAger = studentList.Any(s => s.Age > 12 && s.Age < 20);
+System.Console.WriteLine("\n----ANY----");
+System.Console.WriteLine("checks whether any the students are teenagers");
+Console.WriteLine(isAnyStudentTeenAger);
 
-//GROUP JOIN		
-var groupJoin = standardList.GroupJoin(studentList,  //inner sequence
-                                std => std.StandardID, //outerKeySelector 
-                                s => s.StandardID,     //innerKeySelector
-                                (std, studentsGroup) => new // resultSelector 
-                                {
-                                    Students = studentsGroup,
-                                    StandarFulldName = std.StandardName
-                                });
+//Check whether student list contains the specific student or not return bool
+Student std = new Student(){ StudentID =3, StudentName = "Bill"};
+bool result = studentList.Contains(std);
+System.Console.WriteLine("\n----Contain----");
+System.Console.WriteLine("Check whether student list contains the specific student or not");
+Console.WriteLine(result);
 
-System.Console.WriteLine("\n------Group Join-----");
-foreach (var item in groupJoin)
-{ 
-    Console.WriteLine(item.StandarFulldName );
 
-    foreach(var stud in item.Students)
-        Console.WriteLine(stud.StudentName);
-}
+//Avarage Aggregate funtion
+var avgAge = studentList.Average(s => s.Age);
+System.Console.WriteLine("\n----Avarage Aggregate funtion----");
+Console.WriteLine("Average Age of Student: {0}", avgAge);
 
-var orderByDescendingResult = from s in studentList //Sorts the studentList collection in descending order
-                   orderby s.StudentName descending
-                   select s;
-System.Console.WriteLine("\n------ORDER BY STUDENT NAME DESC-----");
-foreach (var std in orderByDescendingResult)
-        	Console.WriteLine(std.StudentName);
 
-//sum aggregate function
-IList<int> intList = new List<int>() { 10, 30,21, 50,39, 87 };
+//Count Aggregate Function
+Console.WriteLine("\n----Count Aggregate funtion----");
+var totalStudents = studentList.Count();
+Console.WriteLine("Total Students: {0}", totalStudents);
 
-var total = intList.Sum();
-System.Console.WriteLine("\n------sum aggregate function----");
-Console.WriteLine("Sum: {0}", total);
-
-var sumOfEvenElements = intList.Sum(i => {
-			                    if(i%2 == 0)
-				                    return i;
-			
-			                    return 0;
-		                        });
-
-Console.WriteLine("Sum of Even Elements: {0}", sumOfEvenElements );
+var adultStudents = studentList.Count(s => s.Age >= 18);
+Console.WriteLine("Number of Adult Students: {0}", adultStudents );
 
 //MAX
-System.Console.WriteLine("\n------max aggregate function----");
-var MaxValue = intList.Max();
+Console.WriteLine("\n------max aggregate function----");
+var oldest = studentList.Max(s => s.Age);
 
-Console.WriteLine("Max: {0}", MaxValue);
+Console.WriteLine("Oldest Student Age: {0}", oldest);
 
-//UNION 
-IList<string> strList1 = new List<string>() { "One", "Two", "three", "Four" };
-IList<string> strList2 = new List<string>() { "Two", "THREE", "Four", "Five" };
+//sum aggregate function
+Console.WriteLine("\n------sum aggregate function----");
+var sumOfAge = studentList.Sum(s => s.Age);
 
-var result = strList1.Union(strList2);
-System.Console.WriteLine("\n------UNION----");
-foreach(string str in result)
-        Console.WriteLine(str);
+Console.WriteLine("Sum of all student's age: {0}", sumOfAge);
+		
+var numOfAdults = studentList.Sum(s => {
+			
+	if(s.Age >= 18)
+	    return 1;
+	else
+	    return 0;
+});
+ 
+Console.WriteLine("Total Adult Students: {0}", numOfAdults);
 
-//except 
-IList<string> strListe1 = new List<string>(){"One", "Two", "Three", "Four", "Five" };
-IList<string> strListe2 = new List<string>(){"Four", "Five", "Six", "Seven", "Eight"};
 
-var resulte = strListe1.Except(strListe2);
-System.Console.WriteLine("\n------EXCEPT----");
-foreach(string str in resulte)
-        Console.WriteLine(str);
-System.Console.WriteLine();
+
+IList<int> intList = new List<int>() { 10, 21,};
+IList<string> strList = new List<string>() { "One", "Two" };
+IList<int> intDeList = new List<int>() {};
+
+//Element at, ElementAtOrDefault()  
+Console.WriteLine("\n------Elementat, ElementAtOrDefault----");
+Console.WriteLine("1st Element in intList: {0}", intList.ElementAt(0));
+Console.WriteLine("1st Element in strList: {0}", strList.ElementAt(0));
+
+Console.WriteLine("3rd Element in intList: {0}", intList.ElementAtOrDefault(2));
+Console.WriteLine("3rd Element in strList: {0}", strList.ElementAtOrDefault(2));
+
+// First & FirstOrDefault 
+Console.WriteLine("\n------First & FirstOrDefault----");
+Console.WriteLine("1st Element in intList: {0}", intList.First());
+
+Console.WriteLine("1st Element in intDeList: {0}", intDeList.FirstOrDefault());
+
+//Last & LastOrDefault
+Console.WriteLine("\n------Last & LastOrDefault----");
+Console.WriteLine("Last Element in intList: {0}", intList.Last());
+Console.WriteLine("last Element in intDeList: {0}", intDeList.LastOrDefault());
