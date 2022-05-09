@@ -147,8 +147,6 @@
 		- Cannot be used in query syntax in C#
 	- Count	
 		- Counts the elements in a collection.
-	- LongCount	
-		- Counts the elements in a collection.
 	- Max	
 		- Finds the largest value in the collection.
 	- Min	
