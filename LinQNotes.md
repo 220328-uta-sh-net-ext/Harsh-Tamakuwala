@@ -209,6 +209,7 @@
 		- Converts data types 
 			- AsEnumerable: Returns the input sequence as IEnumerable<t>
 			- AsQueryable: Converts IEnumerable to IQueryable, to simulate a remote query provider
+	
 			- Cast: Coverts a non-generic collection to a generic collection (IEnumerable to IEnumerable<T>)
 			- OfType: Filters a collection based on a specified type
 			- ToArray: Converts a collection to an array
@@ -218,21 +219,59 @@
 - Expression
 	- Expressions can be assigned to the Func or Action type delegates to process over in-memory collection
 	- Lambda expression can also be assigned to Expression<TDelegate> type
+	 -Example: Define Func delegate for an expression in C# (Func<Student, bool> isTeenAger = s => s.Age > 12 && s.Age < 20;).
+	 -Example: Define Expression in C# (Expression<Func<Student, bool>> isTeenAgerExpr = s => s.Age > 12 && s.Age < 20;)
 - Expression Tree
 	- Expressions arranged in a tree-like data structure
 	- An in-memory representation of a lambda expression
 	- Holds the actual elements of the query, not the result of the query.
-	- Expression trees are used by remote LINQ query providers as a data structure to build a runtime query out of them
+	- Expression trees are used by remote LINQ query providers as a data structure to build a runtime query out of them.
+	- Example: Expression Tree in C# (Expression.Lambda<Func<Student, bool>>(
+                                            Expression.AndAlso(
+                                            Expression.GreaterThan(Expression.Property(pe, "Age"), Expression.Constant(12, typeof(int))),
+                                            Expression.LessThan(Expression.Property(pe, "Age"), Expression.Constant(20, typeof(int)))),
+                                             new[] { pe });
 - Deffered Execution
 	- The expression isn't used until the value is used elsewhere in the program.
 	- Always gives lasted data. If dataset is modified, the query will use the modified data
 	- can create custom methods with the yield keyword to get the adv of deffered execution
+	 -Example: Implimenting Deferred Execution in C# (public static class EnumerableExtensionMethods
+                                                        {
+                                                          public static IEnumerable<Student> GetTeenAgerStudents(this IEnumerable<Student> source)
+                                                          {
+
+                                                            foreach (Student std in source)
+                                                            {
+                                                            Console.WriteLine("Accessing student {0}", std.StudentName);
+                                                            if (std.age > 12 && std.age < 20)
+                                                                 yield return std;
+                                                             }
+                                                           }
+                                                         }
 - Immediate Execution
 	- Reverse of deferred execution 
 	- Forces the LINQ query to execute and gets the result immediately
 	- ToList(), ToArray() and ToDictionary() are examples
+	 - Example  C#: Immediate Execution
+                                      IList<Student> teenAgerStudents = 
+                                      studentList.Where(s => s.age > 12 && s.age < 20).ToList();
 - let keyword
-	- Allows defining a new variable within a query (similar functionality in ocaml)
+	- Allows defining a new variable within a query.  (similar functionality in ocaml)
+	- Example: let keyword in C#
+                                var lowercaseStudentNames = from s in studentList
+                                                    let lowercaseStudentName = s.StudentName.ToLower()
+                                                    where lowercaseStudentName.StartsWith("r")
+                                                    select lowercaseStudentName;
+
+                                foreach (var name in lowercaseStudentNames)
+	                                 Console.WriteLine(name);
 - into keyword
 	- Allows nested queries
-	- Can form a group
+	- Can form a group.
+	- Example: into keyword in LINQ
+                  var teenAgerStudents = from s in studentList
+                     where s.age > 12 && s.age < 20
+                     elect s
+                         into teenStudents
+                         where teenStudents.StudentName.StartsWith("B")
+                         select teenStudents;
