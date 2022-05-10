@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantDl\RestaurantDl.csproj" />
+    <ProjectReference Include="..\RetaurantModel\RestaurantModel.csproj" />
+    <ProjectReference Include="..\RestaurantBl\RestaurantBl.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.File" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+</Project>
