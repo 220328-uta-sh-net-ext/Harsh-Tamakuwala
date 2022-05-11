@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 namespace RestaurantModel
@@ -59,8 +61,9 @@ namespace RestaurantModel
 
 
         }
-
+        
         private string confirmPassword;
+        [JsonIgnore]
         public string ConfirmPassword
         {
             get { return confirmPassword; }
@@ -122,8 +125,11 @@ namespace RestaurantModel
                 }
             }
         }
-        
+
         //public List<ReviewModelClass> UserReview { get; set; }
+
+
+        //[JsonIgnore]
         public int UserId { get; set; }
     }
 }
