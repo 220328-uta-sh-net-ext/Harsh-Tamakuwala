@@ -137,6 +137,17 @@ namespace RestaurantApi.Controllers
             }
         }
 
+        // DELETE api/values/5
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete(int id)
+        {
+
+            UserRepository userRepository = new();
+            userRepository.deleteUser(id);
+            return Ok();
+        }
+
     }
 }
 
