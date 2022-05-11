@@ -4,11 +4,11 @@ using RestaurantModel;
 
 namespace RestaurantBl
 {
-	public class AddReviewLogic
-	{
-		public AddReviewLogic()
-		{
-		}
+    public class ReviewLogic
+    {
+        public ReviewLogic()
+        {
+        }
         public static void AddReviewMethod(ReviewModelClass reviewModel)
         {
             ReviewRepository review = new ReviewRepository();
@@ -29,6 +29,19 @@ namespace RestaurantBl
                 Console.WriteLine("\nSomething went wrong, please try again!!:\n");
             }
         }
+
+        /// <summary>
+        /// This method is used to get all the reviews
+        /// </summary>
+        /// <returns>list of reviews</returns>
+        public static List<ReviewModelClass> GetAllReview()
+        {
+            Console.Clear();
+            ReviewRepository reviewRepository = new();
+            List<ReviewModelClass> reviewList = reviewRepository.GetItemFromDB();
+            return reviewList;
+        }
+
     }
 }
 

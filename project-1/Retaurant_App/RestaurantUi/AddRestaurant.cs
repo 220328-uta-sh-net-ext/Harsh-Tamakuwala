@@ -71,7 +71,7 @@ namespace RestaurantBl
                 goto contactSection;
             }
 
-            AddRestaurantLogic.AddRestaurantMethod(restaurantModelClass);
+            RestaurantLogic.AddRestaurantMethod(restaurantModelClass);
         }
 
        

@@ -27,7 +27,51 @@ namespace RestaurantBl
             else
             {
 
-                SearchRestaurantBl.SearchRestaurantBL(searchValue);
+                var filteredRestaurants = SearchRestaurantBl.SearchRestaurantBL(searchValue);
+                var avgRating = RestaurantLogic.GetAvgRating();
+                if (filteredRestaurants.Count() > 0)
+                {
+
+                    foreach (var rate in avgRating)
+                    {
+
+                        foreach (var restaurant in filteredRestaurants.Select((value, index) => new { value, index }))
+                        {
+
+                            if (rate.RestaurantId == restaurant.value.RestaurantId)
+                            {
+                                Console.WriteLine("\n---------------------------\n");
+                                Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
+                                Console.WriteLine("");
+                                Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
+                                Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city + ", " + restaurant.value.state);
+                                Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
+                                if (rate.Rating != "0")
+                                {
+                                    Console.WriteLine("Average Rating:       " + rate.Rating);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Average Rating:       " + "Not Rated yet");
+                                }
+                                Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
+                                Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);
+                                Console.WriteLine("Restaurant PhoneNo:   " + restaurant.value.ContactNo);
+                                Console.WriteLine("\n---------------------------\n");
+                            }
+
+                        }
+
+
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n---------------------------\n");
+                    Console.WriteLine("Restaurant not Found!!");
+                    Console.WriteLine("\n---------------------------\n");
+                }
             }
         }
         /// <summary>
@@ -47,7 +91,7 @@ namespace RestaurantBl
         //        Console.WriteLine("");
         //        foreach (var restaurant in restaurants)
         //        {
-                    
+
         //            if (rate.value.RestaurantId == restaurant.RestaurantId)
         //           {
         //                if (rate.value.Rating != "0")
@@ -61,7 +105,7 @@ namespace RestaurantBl
         //                Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
         //                Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
         //                Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
-                        
+
         //                Console.WriteLine("Restaurant Cost Type: " + restaurant.CostType);
         //                Console.WriteLine("Restaurant Website:   " + restaurant.Website);
         //                Console.WriteLine("Restaurant PhoneNo:   " + restaurant.ContactNo);
@@ -72,7 +116,7 @@ namespace RestaurantBl
         //            Console.WriteLine("\n---------------------------\n");
         //        }
         //    }
-            
+
 
         //}
         /// <summary>
@@ -80,11 +124,9 @@ namespace RestaurantBl
         /// </summary>
         internal static void ChooseRestaurant()
         {
-            ReviewRepository reviewRepository = new ReviewRepository();
-            var avgRating = reviewRepository.getAvgReview();
+            var avgRating = RestaurantLogic.GetAvgRating();
 
-            RestaurantRepository restaurantRepository = new RestaurantRepository();
-            var restaurants = restaurantRepository.GetItemFromDB();
+            var restaurants = RestaurantLogic.GetAllRestaurant();
             foreach (var rate in avgRating.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
@@ -94,7 +136,7 @@ namespace RestaurantBl
 
                     if (rate.value.RestaurantId == restaurant.RestaurantId)
                     {
-                        
+
                         Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
                         Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
                         Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
@@ -111,9 +153,9 @@ namespace RestaurantBl
                         Console.WriteLine("Restaurant PhoneNo:   " + restaurant.ContactNo);
                     }
                 }
-               
-                    Console.WriteLine("\n---------------------------\n");
-               
+
+                Console.WriteLine("\n---------------------------\n");
+
                 break;
             }
 
@@ -123,8 +165,10 @@ namespace RestaurantBl
         /// </summary>
         public static void ViewReviews()
         {
-            ReviewRepository reviewRepository = new ReviewRepository();
-            var reviews = reviewRepository.GetItemFromDB();
+
+
+            List<ReviewModelClass> reviews = ReviewLogic.GetAllReview();
+
             foreach (var review in reviews.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
@@ -148,12 +192,11 @@ namespace RestaurantBl
         /// </summary>
         public static void ViewRestaurantDetails()
         {
-            
-            ReviewRepository reviewRepository = new();
-            var avgRating = reviewRepository.getAvgReview();
 
-            RestaurantRepository restaurantRepository = new RestaurantRepository();
-            var restaurants = restaurantRepository.GetItemFromDB();
+
+            var avgRating = RestaurantLogic.GetAvgRating();
+
+            var restaurants = RestaurantLogic.GetAllRestaurant();
             foreach (var rate in avgRating.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
@@ -164,7 +207,7 @@ namespace RestaurantBl
 
                     if (rate.value.RestaurantId == restaurant.RestaurantId)
                     {
-                       
+
                         Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
                         Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
                         Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
@@ -193,8 +236,7 @@ namespace RestaurantBl
         /// </summary>
         public static void AddReview()
         {
-            RestaurantRepository restaurantRepository = new RestaurantRepository();
-            var restaurants = restaurantRepository.GetItemFromDB();
+            var restaurants = RestaurantLogic.GetAllRestaurant();
             Console.WriteLine("\n---------------------------\n");
             Console.WriteLine("Restaurant Reference No.  Restaurant Name");
             foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
@@ -234,7 +276,7 @@ namespace RestaurantBl
                     Console.WriteLine("50 characters only!!");
                     goto commentSection;
                 }
-               
+
                 reviewModel.UserID = Globals.userId;
                 reviewModel.ReviewTime = DateTime.Now;
             }
@@ -245,11 +287,11 @@ namespace RestaurantBl
 
             }
 
-            AddReviewLogic.AddReviewMethod(reviewModel);
+            ReviewLogic.AddReviewMethod(reviewModel);
 
         }
 
-        
+
 
 
 
