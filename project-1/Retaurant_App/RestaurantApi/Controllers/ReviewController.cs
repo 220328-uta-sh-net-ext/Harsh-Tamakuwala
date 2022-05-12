@@ -40,7 +40,54 @@ namespace RestaurantApi.Controllers
             }
         }
 
-       
+
+        // POST api/values
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult PostReview([FromBody] ReviewModelClass review)
+        {
+            if (review == null)
+            {
+                return BadRequest("Invalid review, please try again with valid values.");
+            }
+
+            if (review.Rating == 0 || review.Rating.ToString() == null)
+            {
+                return BadRequest("Rating should be between 1 to 5.");
+            }
+            if (review.RestaurantId == 0 || review.RestaurantId.ToString() == null)
+            {
+                return BadRequest("RestaurantId can not be empty.");
+            }
+            if (review.Comments?.Length > 50)
+            {
+                return BadRequest("Comment can not be more than 50 char");
+            }
+            try
+            {
+                var result = ReviewLogic.AddReviewMethod(review);
+                if (result == "Review Added!!!")
+                {
+                    return CreatedAtAction("Get", review);
+                }
+                else if(result == "You have already rated this restaurant!!")
+                {
+                    return BadRequest("You have already rated this restaurant!");
+                }
+                else
+                {
+                    return BadRequest("Something went wrong, please try again!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
     }
 }
 

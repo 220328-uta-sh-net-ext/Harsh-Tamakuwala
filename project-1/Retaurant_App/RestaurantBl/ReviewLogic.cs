@@ -9,7 +9,7 @@ namespace RestaurantBl
         public ReviewLogic()
         {
         }
-        public static void AddReviewMethod(ReviewModelClass reviewModel)
+        public static string AddReviewMethod(ReviewModelClass reviewModel)
         {
             ReviewRepository review = new ReviewRepository();
             var result = review.AddItemToDB(reviewModel);
@@ -18,15 +18,18 @@ namespace RestaurantBl
             {
                 //Log.Information("Review successfully added");
                 Console.WriteLine("\nReview Added!!!\n");
+                return "Review Added!!!";
             }
             else if (result.Contains("Violation of UNIQUE KEY constrain"))
             {
                 Console.WriteLine("\nYou have already rated this restaurant!!\n");
+                return "You have already rated this restaurant!!";
             }
             else
             {
                 //Log.Information(" faild : ", result.ToString());
-                Console.WriteLine("\nSomething went wrong, please try again!!:\n");
+                Console.WriteLine("\nSomething went wrong, please try again!!\n");
+                return "Something went wrong, please try again!!";
             }
         }
 
