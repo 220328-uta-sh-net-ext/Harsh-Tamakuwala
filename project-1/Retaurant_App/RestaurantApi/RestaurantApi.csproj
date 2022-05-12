@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+    <PackageReference Include="Docker.DotNet" Version="3.125.5" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Xamarin.HotReload" />
+    <None Remove="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <None Remove="Docker.DotNet" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestaurantDl\RestaurantDl.csproj">

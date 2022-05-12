@@ -15,7 +15,7 @@ namespace RestaurantDl
 
         public List<ReviewModelClass> GetItemFromDB()
         {
-            string commandString = "SELECT r.*,u.firstname ,rs.RestaurantName from Reviews as r INNER join Users as u on r.RatedBy = u.userID INNER join Restaurants as rs on r.RestaurantId = rs.RestaurantId Order by r.Reviewtime desc ";
+            string commandString = "SELECT r.*,u.firstname + ' ' + LastName ,rs.RestaurantName from Reviews as r INNER join Users as u on r.RatedBy = u.userID INNER join Restaurants as rs on r.RestaurantId = rs.RestaurantId Order by r.Reviewtime desc ";
             using SqlConnection connection = new(connectionString);
             var reviews = new List<ReviewModelClass>();
 
