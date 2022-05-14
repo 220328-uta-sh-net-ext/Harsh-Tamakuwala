@@ -6,17 +6,19 @@ namespace RestaurantBl
 {
     public class ReviewLogic
     {
-        public ReviewLogic()
+        readonly IItemRepository<ReviewModelClass> repo;
+       
+        public ReviewLogic(IItemRepository<ReviewModelClass> repo)
         {
+            this.repo = repo;
         }
-        public static string AddReviewMethod(ReviewModelClass reviewModel)
+        public  string AddReviewMethod(ReviewModelClass reviewModel)
         {
-            ReviewRepository review = new ReviewRepository();
-            var result = review.AddItemToDB(reviewModel);
+           
+            var result = repo.AddItemToDB(reviewModel);
 
             if (result == "Review Added!!!")
             {
-                //Log.Information("Review successfully added");
                 Console.WriteLine("\nReview Added!!!\n");
                 return "Review Added!!!";
             }
@@ -27,7 +29,6 @@ namespace RestaurantBl
             }
             else
             {
-                //Log.Information(" faild : ", result.ToString());
                 Console.WriteLine("\nSomething went wrong, please try again!!\n");
                 return "Something went wrong, please try again!!";
             }
@@ -37,11 +38,11 @@ namespace RestaurantBl
         /// This method is used to get all the reviews
         /// </summary>
         /// <returns>list of reviews</returns>
-        public static List<ReviewModelClass> GetAllReview()
+        public  List<ReviewModelClass> GetAllReview()
         {
             Console.Clear();
-            ReviewRepository reviewRepository = new();
-            List<ReviewModelClass> reviewList = reviewRepository.GetItemFromDB();
+           
+            List<ReviewModelClass> reviewList = repo.GetItemFromDB();
             return reviewList;
         }
 

@@ -7,34 +7,37 @@ namespace RestaurantUi
 {
     public class AddUserClass
     {
-        public AddUserClass()
+        readonly AddUserLogic logic;
+        readonly Authentication authLogic;
+        public AddUserClass(AddUserLogic logic, Authentication authLogic)
         {
+            this.logic = logic;
+            this.authLogic = authLogic;
         }
         /// <summary>
         /// this method will add users in database by getting the input from the admin 
         /// </summary>
         // Authentication authentication = new Authentication();
-        LoginClass login = new();
+       
         public string SignupUser(string choice)
         {
+            LoginClass login = new LoginClass(authLogic);
             Console.WriteLine("\n----------Register Now----------\n");
             var result = AddUser();
-            Console.WriteLine(result);
-            // userChoice = "Registered user";
+
             if (result == "User Added!!!")
             {
                 var loginResult = login.AskInput(choice);
-
                 return loginResult;
             }
             else
             {
-               // Console.WriteLine(result);
+               
                 return result;
             }
 
         }
-        public static string AddUser()
+        public string AddUser()
         {
             UserModelClass userModel = new UserModelClass();
 
@@ -44,7 +47,7 @@ namespace RestaurantUi
 
             Console.Write("Please Enter Last Name: ");
             userModel.LastName = Console.ReadLine();
-            //Globals.userName = userModel.FirstName + " " + userModel.LastName;
+            
             Console.Write("Please Enter EmailId: ");
         emailSection:
             try
@@ -102,9 +105,9 @@ namespace RestaurantUi
                 Console.WriteLine("Please enter valid contact number!!");
                 goto contactSection;
             }
-           var result = AddUserLogic.addUserMethod(userModel);
+           var result = logic.addUserMethod(userModel);
 
-            //Console.WriteLine(userModel.FirstName);
+            
 
             return result;
         }

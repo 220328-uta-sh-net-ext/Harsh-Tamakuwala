@@ -13,9 +13,11 @@ namespace RestaurantBl
     }
     public class Authentication
     {
-       
-        public Authentication()
+
+        readonly IItemRepository<UserModelClass> repo;
+        public Authentication(IItemRepository<UserModelClass> repo)
         {
+            this.repo = repo;
         }
         /// <summary>
         /// if choice = admin
@@ -33,7 +35,7 @@ namespace RestaurantBl
             {
                 var email = "admin@gmail.com";
                 var pass = "admin123@";
-                //email.Substring(0);
+               
                 if (emailId == email && password == pass)
                 {
                     Console.Clear();
@@ -43,8 +45,8 @@ namespace RestaurantBl
             }
             else if (choice == "User")
             {
-                UserRepository userRepository = new UserRepository();
-               var allUders= userRepository.GetItemFromDB();
+                
+               var allUders= repo.GetItemFromDB();
                
                 foreach (var user in allUders)
                 {

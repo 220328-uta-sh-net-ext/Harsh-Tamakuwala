@@ -6,22 +6,31 @@ namespace RestaurantBl
 {
     public class RestaurantLogic
     {
-        public RestaurantLogic()
+        readonly  IItemRepository<RestaurantModelClass> repo;
+       
+        public RestaurantLogic(IItemRepository<RestaurantModelClass> repo)
         {
+            this.repo = repo;
         }
-        public static void AddRestaurantMethod(RestaurantModelClass restaurantModelClass)
+        public string AddRestaurantMethod(RestaurantModelClass restaurantModelClass)
         {
-            RestaurantRepository restaurantRepository = new RestaurantRepository();
-            var result = restaurantRepository.AddItemToDB(restaurantModelClass);
+
+           // RestaurantRepository restaurantRepository = new RestaurantRepository();
+            var result = repo.AddItemToDB(restaurantModelClass);
             if (result == "Restaurant Added!!!")
             {
-                // Log.Information("Restaurant successfully added");
                 Console.WriteLine("\nRestaurant Added!!!\n");
+                return "Restaurant Added!";
+            }
+            else if (result.Contains("Violation of UNIQUE KEY constrain"))
+            {
+                Console.WriteLine("\nYou have already Added this restaurant!!\n");
+                return "You have already added this restaurant!!";
             }
             else
             {
-                //Log.Information(" faild : ", result.ToString());
                 Console.WriteLine("\nSometing went wrong. please try again!!\n");
+                return "Someting went wrong. please try again!";
             }
         }
 
@@ -29,26 +38,14 @@ namespace RestaurantBl
         /// This method is used to get all the restaurant details
         /// </summary>
         /// <returns>list of restaurant</returns>
-        public static List<RestaurantModelClass> GetAllRestaurant()
+        public List<RestaurantModelClass> GetAllRestaurant()
         {
             Console.Clear();
-            RestaurantRepository restaurantRepository = new RestaurantRepository();
-            var restaurants = restaurantRepository.GetItemFromDB();
+           // RestaurantRepository restaurantRepository = new RestaurantRepository();
+            var restaurants = repo.GetItemFromDB();
             return restaurants;
         }
 
-        /// <summary>
-        /// This method is used to get all the avgrage rating ofrestaurant details
-        /// </summary>
-        /// <returns>list of avarage rating of restaurant</returns>
-        public static List<AvgRating> GetAvgRating()
-        {
-            Console.Clear();
-
-            ReviewRepository reviewRepository = new();
-            var avgRating = reviewRepository.getAvgReview();
-            return avgRating;
-        }
     }
 }
 

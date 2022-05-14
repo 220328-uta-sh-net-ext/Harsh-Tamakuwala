@@ -4,13 +4,17 @@ using Microsoft.Data.SqlClient;
 
 namespace RestaurantDl
 {
-    public class ReviewRepository : IItemRepository<ReviewModelClass>, IAvgReviewRepository
+    public class ReviewRepository : IItemRepository<ReviewModelClass>
     {
-        private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
+        //private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
         private readonly string connectionString;
-        public ReviewRepository()
+        //public ReviewRepository()
+        //{
+        //    connectionString = File.ReadAllText(connectionStringFilePath);
+        //}
+        public ReviewRepository(string connectionString)
         {
-            connectionString = File.ReadAllText(connectionStringFilePath);
+            this.connectionString = connectionString;
         }
 
         public List<ReviewModelClass> GetItemFromDB()
@@ -40,11 +44,7 @@ namespace RestaurantDl
 
 
             }
-            //foreach (var review in reviews)
-            //{
-            //    Console.WriteLine(review.RestaurantName);
-            //}
-
+           
             return reviews;
         }
 
@@ -65,8 +65,8 @@ namespace RestaurantDl
                 command.Parameters.AddWithValue("@RateedBy", item.UserID);
                 command.Parameters.AddWithValue("@Ratetime", item.ReviewTime);
 
-                var success = command.ExecuteNonQuery();
-                Console.WriteLine(success);
+               command.ExecuteNonQuery();
+               
                 result = "Review Added!!!";
             }
             catch (Exception ex)
@@ -81,37 +81,7 @@ namespace RestaurantDl
             return result;
         }
 
-        public List<AvgRating> getAvgReview()
-        {
-            Console.Clear();
-            string commandString = "Select AVG(r.ratings) as rating ,rs.RestaurantId from Reviews as r Right JOIN Restaurants as rs on r.RestaurantId = rs.RestaurantId GROUP BY rs.RestaurantId Order by rating desc";
-            using SqlConnection connection = new(connectionString);
-
-            connection.Open();
-            using SqlCommand command = new(commandString, connection);
-            using SqlDataReader reader = command.ExecuteReader();
-
-
-           var avgRatingRest = new List<AvgRating>();
-
-            while (reader.Read())
-            {
-                avgRatingRest.Add(new AvgRating
-                {
-                    Rating = reader.IsDBNull(0) ? "0" : reader.GetDouble(0).ToString("#.#"),
-                    RestaurantId = reader.GetInt32(1),
-                });
-            }
-
-            //foreach (var avgReview in avgRatingRest)
-            //{
-
-            //        Console.WriteLine(avgReview.rating+ " " + avgReview.RestaurantId);
-
-            //}
-            return avgRatingRest;
-
-        }
+        
     }
 }
 

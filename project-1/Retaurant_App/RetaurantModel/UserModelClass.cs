@@ -12,15 +12,6 @@ namespace RestaurantModel
         public UserModelClass()
         {
 
-            //UserId = 0;
-            //firstName = "john";
-            //LastName = "Pierson";
-            //password = "abc123";
-            //confirmPassword = "abc123";
-            //contactNo = 1234567890;
-            //emailId = "abc@gamil.com";
-            // UserReview = new List<ReviewModelClass>();
-
         }
 
         public string LastName { get; set; }
@@ -35,10 +26,7 @@ namespace RestaurantModel
                 {
                     firstName = value;
                 }
-                //else
-                //{
-                //    throw new Exception("First Name can not be empty");
-                //}
+                
             }
 
         }
@@ -53,10 +41,7 @@ namespace RestaurantModel
                 {
                     password = value;
                 }
-                //else
-                //{
-                //    throw new Exception("Minimum 6 character requried!!");
-                //}
+                
             }
 
 
@@ -95,10 +80,7 @@ namespace RestaurantModel
                 {
                     contactNo = value;
                 }
-                //else
-                //{
-                //    throw new Exception("Enter valid Contact No.");
-                //}
+              
 
             }
         }
@@ -125,11 +107,7 @@ namespace RestaurantModel
                 }
             }
         }
-
-        //public List<ReviewModelClass> UserReview { get; set; }
-
-
-        //[JsonIgnore]
+      
         public int UserId { get; set; }
     }
 }

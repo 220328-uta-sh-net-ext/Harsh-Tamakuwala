@@ -6,11 +6,13 @@ namespace RestaurantUi
 {
 	public class UserOperationUi
 	{
-		public UserOperationUi()
+        readonly SearchUser logic;
+        public UserOperationUi(SearchUser logic)
 		{
+            this.logic = logic;
 		}
 		
-        public static void SearchUserUiMethod()
+        public void SearchUserUiMethod()
         {
         search:
             Console.Write("Search Users : ");
@@ -20,7 +22,7 @@ namespace RestaurantUi
                 Console.WriteLine("\nInvalid Input!!\n");
                 goto search;
             }
-            var filteredUsers = SearchUser.SearchUserAsAdmin(searchValue);
+            var filteredUsers = logic.SearchUserAsAdmin(searchValue);
             if (filteredUsers.Count() > 0)
             {
                 foreach (var user in filteredUsers.Select((value, index) => new { value, index }))

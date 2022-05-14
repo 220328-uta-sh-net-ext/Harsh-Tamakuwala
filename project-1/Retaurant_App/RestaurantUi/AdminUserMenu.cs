@@ -82,10 +82,6 @@ namespace RestaurantUi
                         return "SearchRestaurant";
                     case "5":
                         return "ChooseRestaurant";
-                    //case "6":
-                    //    return "CalculateAllRestaurantAvgRating";
-                    //case "7":
-                    //    return "DisplayRestaurantDetail";
                     default:
                         Console.WriteLine("Please input a valid response");
                         Console.WriteLine("Please press <enter> to continue");

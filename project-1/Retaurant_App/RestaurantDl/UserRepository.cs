@@ -6,14 +6,22 @@ namespace RestaurantDl
 {
     public class UserRepository : IItemRepository<UserModelClass>
     {
-        private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
+        //private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
         private readonly string connectionString;
 
-        public UserRepository()
+        //public UserRepository()
+        //{
+
+        //    connectionString = File.ReadAllText(connectionStringFilePath);
+        //}
+        public UserRepository(string connectionString)
         {
-            
-            connectionString = File.ReadAllText(connectionStringFilePath);
+            this.connectionString = connectionString;
         }
+        //public UserRepository(string connectionString)
+        //{
+        //    this.connectionString = connectionString;
+        //}
         public List<UserModelClass> GetItemFromDB()
         {
             string commandString = "SELECT * FROM Users";
@@ -48,10 +56,8 @@ namespace RestaurantDl
             {
                 connection.Close();
             }
-            //foreach (var user in users)
-            //{
-            //    Console.WriteLine(user.FirstName);
-            //}
+            
+           
             
             return users;
         }
@@ -74,16 +80,22 @@ namespace RestaurantDl
                 command.Parameters.AddWithValue("@pass", item.Password);
                 command.Parameters.AddWithValue("@contact", item.ContactNo);
                
-               var success= command.ExecuteNonQuery();
-                Console.WriteLine(success);
+               command.ExecuteNonQuery();
+              
                 result = "User Added!!!";
                 return result;
             }
             catch (Exception ex)
             {
                 result = ex.Message;
-
-                throw new Exception(ex.Message);
+                if(result.Contains("Violation of UNIQUE KEY constraint"))
+                {
+                return "Violation of UNIQUE KEY constraint";
+                }
+                else
+                {
+                    return "Failed to add user";
+                }
             }
             finally
             {

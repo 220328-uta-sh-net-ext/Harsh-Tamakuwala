@@ -6,19 +6,19 @@ namespace RestaurantBl
 {
     public class SearchRestaurantBl
     {
-        public SearchRestaurantBl()
+        readonly RestaurantLogic restaurantLogic;
+        public SearchRestaurantBl(RestaurantLogic restaurantLogic)
         {
+            this.restaurantLogic = restaurantLogic;
         }
         /// <summary>
         /// this method will search for the restaurant from the given value in name from the database and will display the result
         /// </summary>
         /// <param name="name"></param>
-        public static List<RestaurantModelClass> SearchRestaurantBL(string name)
+        public List<RestaurantModelClass> SearchRestaurantBL(string name)
         {
 
-
-
-            var retsaurantList = RestaurantLogic.GetAllRestaurant();
+            var retsaurantList = restaurantLogic.GetAllRestaurant();
 
             var filteredRestaurants = from restaurant in retsaurantList
                                       where restaurant.RestaurantName.ToLower().Contains(name.ToLower()) ||

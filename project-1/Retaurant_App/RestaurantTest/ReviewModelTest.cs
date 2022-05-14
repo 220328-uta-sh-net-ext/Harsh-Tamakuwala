@@ -42,7 +42,7 @@ namespace RestaurantTest
             reviewModel.RestaurantId = validName;
             //Assert
             Assert.NotNull(reviewModel.RestaurantId.ToString());
-            //Assert.Equal(validName, reviewModel.RestaurantName);
+            
         }
 
     }

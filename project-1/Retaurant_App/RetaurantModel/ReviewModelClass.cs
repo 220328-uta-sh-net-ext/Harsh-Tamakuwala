@@ -6,14 +6,9 @@ namespace RestaurantModel
     {
         public ReviewModelClass()
         {
-            //ReviewId = 0;
-            //RestaurantId = 0;
-            //Comments = "";
-            //UserID= 0;
-            //UserName = "john";
-            //rating = 5;
+            
             ReviewTime = DateTime.Now;
-            //RestaurantName = "";
+            
 
         }
         public int ReviewId { get; set; }
@@ -29,11 +24,7 @@ namespace RestaurantModel
                 {
                     comment = value;
                 }
-                //else
-                //{
-                //    throw new Exception("50 characters only");
-
-                //}
+                
             }
         }
 
@@ -45,10 +36,7 @@ namespace RestaurantModel
                 {
                     rating = value;
                 }
-                //else
-                //{
-                //    throw new Exception("Please enter valid rating!");
-                //}
+               
             }
         }
         
@@ -61,10 +49,7 @@ namespace RestaurantModel
                 {
                     restaurantId = value;
                 }
-                //else
-                //{
-                //    throw new Exception("Restaurant Id cannot be empty!");
-                //}
+               
             }
         }
 

@@ -10,12 +10,19 @@ using RestaurantModel;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/[controller]")]
-
+    [Route("api/")]
     public class UserController : Controller
     {
+        private SearchUser searchlogic;
+        private AddUserLogic addlogic;
+        public UserController(SearchUser searchlogic, AddUserLogic addlogic)
+        {
+
+            this.searchlogic = searchlogic;
+            this.addlogic = addlogic;
+        }
+        [Route("getAllUser")]
         // GET: api/values
-       
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -25,7 +32,7 @@ namespace RestaurantApi.Controllers
            
             try
             {
-                var users = SearchUser.GetAllUser();
+                var users = searchlogic.GetAllUser();
                 if(users == null)
                 {
                     return NotFound("There is no users in Database");
@@ -40,9 +47,9 @@ namespace RestaurantApi.Controllers
                 return BadRequest("Server is down,please try again");
             }
         }
-
+        [Route("getSearchUser")]
         // GET api/values/5
-        [HttpGet("Search")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -50,12 +57,13 @@ namespace RestaurantApi.Controllers
         {
             if (searchuser == null || int.TryParse(searchuser, out int result) == true)
                 return BadRequest("Invalid input, please try again with valid input");
-            var user = SearchUser.SearchUserAsAdmin(searchuser);
+            var user = searchlogic.SearchUserAsAdmin(searchuser);
             if (user.Count <= 0)
                 return NotFound("User not found");
             return Ok(user);
         }
 
+        [Route("addUser")]
         // POST api/values
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -86,7 +94,7 @@ namespace RestaurantApi.Controllers
             }
             try
             {
-                AddUserLogic.addUserMethod(user);
+                addlogic.addUserMethod(user);
                 return CreatedAtAction("Get", user);
             }
             catch (Exception ex)
@@ -97,56 +105,58 @@ namespace RestaurantApi.Controllers
 
         }
 
-        // PUT api/values/5
-        [HttpPut]
-        public ActionResult Put(int id, [FromBody] UserModelClass user)
-        {
-            if (user == null)
-            {
-                return BadRequest("Invalid User, please try again with valid values.");
-            }
+        //[Route("updateUser")]
+        //// PUT api/values/5
+        //[HttpPut]
+        //public ActionResult Put(int id, [FromBody] UserModelClass user)
+        //{
+        //    if (user == null)
+        //    {
+        //        return BadRequest("Invalid User, please try again with valid values.");
+        //    }
 
-            if (user.FirstName == null || user.FirstName == "")
-            {
-                return BadRequest("Invalid First Name,please enter valid First Name.");
-            }
-            if (user.Password.Length < 6)
-            {
-                return BadRequest("Password must be more than 6 character.");
-            }
-            if (user.ContactNo.ToString().Length != 10)
-            {
-                return BadRequest("Invalid Contact Number,please enter valid contact number.");
-            }
+        //    if (user.FirstName == null || user.FirstName == "")
+        //    {
+        //        return BadRequest("Invalid First Name,please enter valid First Name.");
+        //    }
+        //    if (user.Password.Length < 6)
+        //    {
+        //        return BadRequest("Password must be more than 6 character.");
+        //    }
+        //    if (user.ContactNo.ToString().Length != 10)
+        //    {
+        //        return BadRequest("Invalid Contact Number,please enter valid contact number.");
+        //    }
 
 
-            if (user.EmailId == "")
-            {
-                return BadRequest("Invalid Email address,Please enter valid email address!!");
+        //    if (user.EmailId == "")
+        //    {
+        //        return BadRequest("Invalid Email address,Please enter valid email address!!");
 
-            }
-            try
-            {
-                UserRepository userRepository = new();
-                userRepository.updateUser(id, user);
-                return Created("Get", user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Something went wrong!!");
-            }
-        }
+        //    }
+        //    try
+        //    {
+        //        UserRepository userRepository = new UserRepository(Config.GetConnectionString("RestaurantDb"));
+        //        userRepository.updateUser(id, user);
+        //        return Created("Get", user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest("Something went wrong!!");
+        //    }
+        //}
 
-        // DELETE api/values/5
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Delete(int id)
-        {
+        //[Route("deleteUser")]
+        //// DELETE api/values/5
+        //[HttpDelete]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public ActionResult Delete(int id)
+        //{
 
-            UserRepository userRepository = new();
-            userRepository.deleteUser(id);
-            return Ok();
-        }
+        //    UserRepository userRepository = new UserRepository();
+        //    userRepository.deleteUser(id);
+        //    return Ok();
+        //}
 
     }
 }

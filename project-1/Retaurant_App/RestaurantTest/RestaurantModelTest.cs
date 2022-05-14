@@ -19,7 +19,7 @@ namespace RestaurantTest
             restaurantModel.RestaurantName = validName;
             //Assert
             Assert.NotNull(restaurantModel.RestaurantName);
-            //Assert.Equal(validName, reviewModel.RestaurantName);
+            
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace RestaurantTest
             restaurantModel.ZipCode = validName;
             //Assert
             Assert.NotNull(restaurantModel.ZipCode);
-            //Assert.Equal(validName, reviewModel.RestaurantName);
+            
         }
     }
 }

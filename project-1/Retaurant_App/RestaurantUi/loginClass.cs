@@ -6,8 +6,10 @@ namespace RestaurantUi
 {
 	public class LoginClass
 	{
-		public LoginClass()
+        readonly Authentication logic;
+        public LoginClass(Authentication logic)
 		{
+            this.logic = logic;
 		}
         /// <summary>
         /// It will ask input for emailid and password to check for login as admin or user
@@ -19,7 +21,8 @@ namespace RestaurantUi
         public string AskInput(string choice)
         {
             LoginModelClass loginModel = new();
-            Authentication auth = new();
+            //IItemRepository<UserModelClass> userRepo = new UserRepository(connectionString);
+            //Authentication auth = new(userRepo);
             Console.Clear();
             Console.WriteLine("Please enter email id and password\n");
         emailSection:
@@ -38,7 +41,7 @@ namespace RestaurantUi
                 Console.Write("Password should not be empty!\n");
                 goto passSection;
             }
-            var result = auth.Login(choice, loginModel.EmailId, loginModel.Password);
+            var result = logic.Login(choice, loginModel.EmailId, loginModel.Password);
             return result;
 
         }

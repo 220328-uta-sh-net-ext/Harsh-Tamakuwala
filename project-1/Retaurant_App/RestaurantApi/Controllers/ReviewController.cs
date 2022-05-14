@@ -4,15 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantBl;
+using RestaurantDl;
 using RestaurantModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class ReviewController : Controller
     {
+        private ReviewLogic logic;
+        public ReviewController(ReviewLogic logic)
+        {
+
+            this.logic = logic;
+        }
+        [Route("getAllReviews")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -23,10 +31,10 @@ namespace RestaurantApi.Controllers
 
             try
             {
-                var reviews = ReviewLogic.GetAllReview();
+                var reviews = logic.GetAllReview();
                 if (reviews == null)
                 {
-                    return NotFound("There is no reviews in Database");
+                    return NotFound("There is no review in Database");
                 }
                 else
                 {
@@ -40,7 +48,7 @@ namespace RestaurantApi.Controllers
             }
         }
 
-
+        [Route("addReview")]
         // POST api/values
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -66,7 +74,7 @@ namespace RestaurantApi.Controllers
             }
             try
             {
-                var result = ReviewLogic.AddReviewMethod(review);
+                var result = logic.AddReviewMethod(review);
                 if (result == "Review Added!!!")
                 {
                     return CreatedAtAction("Get", review);

@@ -6,14 +6,19 @@ namespace RestaurantBl
 {
     public class RestaurantOperation
     {
-
-        public RestaurantOperation()
+        readonly RestaurantLogic logic;
+        readonly ReviewLogic reLogic;
+        readonly avgClass avgReLogic;
+        public RestaurantOperation(RestaurantLogic logic,ReviewLogic reviewLogic1, avgClass avgReLogic)
         {
+            this.avgReLogic = avgReLogic;
+            this.logic=logic;
+            this.reLogic = reviewLogic1;
         }
         /// <summary>
         /// this will ask for input for searching the restaurant 
         /// </summary>
-        public static void SearchRestaurant()
+        public void SearchRestaurant()
         {
             Console.WriteLine("Search restaurant by name, address, phoneNo and cost type\n");
         search:
@@ -26,9 +31,9 @@ namespace RestaurantBl
             }
             else
             {
-
-                var filteredRestaurants = SearchRestaurantBl.SearchRestaurantBL(searchValue);
-                var avgRating = RestaurantLogic.GetAvgRating();
+                SearchRestaurantBl searchRestaurantBl = new SearchRestaurantBl(logic);
+                var filteredRestaurants = searchRestaurantBl.SearchRestaurantBL(searchValue);
+                var avgRating = avgReLogic.GetAvgRating();
                 if (filteredRestaurants.Count() > 0)
                 {
 
@@ -74,59 +79,18 @@ namespace RestaurantBl
                 }
             }
         }
-        /// <summary>
-        /// this method will display the avarage rating of each restaurant
-        /// </summary>
-        //public static void AvgRatingOfRestaurants()
-        //{
-        //    ReviewRepository reviewRepository = new();
-        //    var avgRating= reviewRepository.getAvgReview();
-
-        //    RestaurantRepository restaurantRepository = new RestaurantRepository();
-        //    var restaurants = restaurantRepository.GetItemFromDB();
-        //    foreach (var rate in avgRating.Select((value, index) => new { value, index }))
-        //    {
-        //        Console.WriteLine("\n---------------------------\n");
-        //        Console.WriteLine("          Restaurant: " + (rate.index + 1));
-        //        Console.WriteLine("");
-        //        foreach (var restaurant in restaurants)
-        //        {
-
-        //            if (rate.value.RestaurantId == restaurant.RestaurantId)
-        //           {
-        //                if (rate.value.Rating != "0")
-        //                {
-        //                    Console.WriteLine("Average Rating:       " + rate.value.Rating);
-        //                }
-        //                else
-        //                {
-        //                    Console.WriteLine("Average Rating:       " + "Not Rated yet");
-        //                }
-        //                Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
-        //                Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
-        //                Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
-
-        //                Console.WriteLine("Restaurant Cost Type: " + restaurant.CostType);
-        //                Console.WriteLine("Restaurant Website:   " + restaurant.Website);
-        //                Console.WriteLine("Restaurant PhoneNo:   " + restaurant.ContactNo);
-        //            }
-        //        }
-        //        if ((rate.index + 1) == restaurants.Count())
-        //        {
-        //            Console.WriteLine("\n---------------------------\n");
-        //        }
-        //    }
+       
 
 
         //}
         /// <summary>
         /// it will show haighest rating restaurant to choose
         /// </summary>
-        internal static void ChooseRestaurant()
+        internal void ChooseRestaurant()
         {
-            var avgRating = RestaurantLogic.GetAvgRating();
-
-            var restaurants = RestaurantLogic.GetAllRestaurant();
+            var avgRating = avgReLogic.GetAvgRating();
+           
+            var restaurants = logic.GetAllRestaurant();
             foreach (var rate in avgRating.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
@@ -163,11 +127,11 @@ namespace RestaurantBl
         /// <summary>
         /// this methos will display reviews of every restaurant
         /// </summary>
-        public static void ViewReviews()
+        public void ViewReviews()
         {
 
 
-            List<ReviewModelClass> reviews = ReviewLogic.GetAllReview();
+            List<ReviewModelClass> reviews = reLogic.GetAllReview();
 
             foreach (var review in reviews.Select((value, index) => new { value, index }))
             {
@@ -190,13 +154,14 @@ namespace RestaurantBl
         /// <summary>
         /// this methos will display details of every restaurant
         /// </summary>
-        public static void ViewRestaurantDetails()
+        public void ViewRestaurantDetails()
         {
 
 
-            var avgRating = RestaurantLogic.GetAvgRating();
+            var avgRating = avgReLogic.GetAvgRating();
+       
 
-            var restaurants = RestaurantLogic.GetAllRestaurant();
+            var restaurants = logic.GetAllRestaurant();
             foreach (var rate in avgRating.Select((value, index) => new { value, index }))
             {
                 Console.WriteLine("\n---------------------------\n");
@@ -234,9 +199,11 @@ namespace RestaurantBl
         /// <summary>
         /// this method will ask for input for adding the review
         /// </summary>
-        public static void AddReview()
+        public void AddReview()
         {
-            var restaurants = RestaurantLogic.GetAllRestaurant();
+           
+
+            var restaurants = logic.GetAllRestaurant();
             Console.WriteLine("\n---------------------------\n");
             Console.WriteLine("Restaurant Reference No.  Restaurant Name");
             foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
@@ -287,41 +254,9 @@ namespace RestaurantBl
 
             }
 
-            ReviewLogic.AddReviewMethod(reviewModel);
+            reLogic.AddReviewMethod(reviewModel);
 
         }
-
-
-
-
-
-
-
-        //public static void DisplayRestaurantDetail()
-        //{
-        //    RestaurantRepository restaurantRepository = new RestaurantRepository();
-        //    var restaurants = restaurantRepository.GetItemFromDB();
-
-        //    foreach (var restaurant in restaurants.Select((value, index) => new { value, index }))
-        //    {
-        //        Console.WriteLine("\n---------------------------\n");
-        //        Console.WriteLine("          Restaurant: " + (restaurant.index + 1));
-        //        Console.WriteLine("");
-        //        Console.WriteLine("Restaurant Name:      " + restaurant.value.RestaurantName);
-        //        Console.WriteLine("Restaurant Address:   " + restaurant.value.Address1 + ", " + restaurant.value.city + ", " + restaurant.value.state);
-        //        Console.WriteLine("Restaurant Zipcode:   " + restaurant.value.ZipCode);
-        //        Console.WriteLine("Restaurant Cost Type: " + restaurant.value.CostType);
-        //        Console.WriteLine("Restaurant Website:   " + restaurant.value.Website);
-        //        Console.WriteLine("Restaurant PhoneNo:   " + restaurant.value.ContactNo);
-        //        if ((restaurant.index + 1) == restaurants.Count())
-        //        {
-        //            Console.WriteLine("\n---------------------------\n");
-        //        }
-
-        //    }
-        //}
-
-
     }
 }
 

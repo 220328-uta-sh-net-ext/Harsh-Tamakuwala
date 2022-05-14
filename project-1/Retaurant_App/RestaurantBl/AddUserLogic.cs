@@ -6,22 +6,30 @@ namespace RestaurantBl
 {
 	public class AddUserLogic
 	{
-		public AddUserLogic()
-		{
-		}
-        public static string addUserMethod(UserModelClass userModel)
+		
+        readonly IItemRepository<UserModelClass> repo;
+        public AddUserLogic(IItemRepository<UserModelClass> repo)
         {
-            UserRepository user = new UserRepository();
-            var result = user.AddItemToDB(userModel);
+            this.repo = repo;
+        }
+        public string addUserMethod(UserModelClass userModel)
+        {
+            //UserRepository user = new UserRepository();
+            var result = repo.AddItemToDB(userModel);
 
             if (result == "User Added!!!")
             {
-                //Log.Information("User successfully added");
+              
                 return "User Added!!!";
+            }
+            else if (result.Contains("Violation of UNIQUE KEY constrain"))
+            {
+               
+                return "Violation of UNIQUE KEY constraint";
             }
             else
             {
-              //  Log.Information(" faild : ", result.ToString());
+             
                 return "Failed to add user \n";
             }
         }

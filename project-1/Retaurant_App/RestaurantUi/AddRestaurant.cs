@@ -6,8 +6,10 @@ namespace RestaurantBl
 {
     public class AddRestaurant
     {
-        public AddRestaurant()
+        readonly RestaurantLogic logic;
+        public AddRestaurant(RestaurantLogic logic)
         {
+            this.logic = logic;
         }
         /// <summary>
         /// this method will add restaurant in database by getting the input from the admin 
@@ -70,8 +72,7 @@ namespace RestaurantBl
                 Console.WriteLine("Please enter valid contact number!!");
                 goto contactSection;
             }
-
-            RestaurantLogic.AddRestaurantMethod(restaurantModelClass);
+            logic.AddRestaurantMethod(restaurantModelClass);
         }
 
        

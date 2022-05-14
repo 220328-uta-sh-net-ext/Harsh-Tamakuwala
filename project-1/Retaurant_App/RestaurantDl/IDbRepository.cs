@@ -2,7 +2,7 @@
 using RestaurantModel;
 namespace RestaurantDl
 {
-    public interface IItemRepository<T>
+    public interface IItemRepository<T> 
     {
         /// <summary>
         /// Add a new item to the database

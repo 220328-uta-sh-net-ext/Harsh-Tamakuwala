@@ -4,17 +4,7 @@
     {
         public RestaurantModelClass()
         {
-            RestaurantId = 0;
-            RestaurantName = "xyz";
-            Address1 = "123 main street";
-            city = "Morris plains";
-            state = "NJ";
-            ZipCode = "07950";
-            CostType = "$$";
-            Website = "www.xyz.com";
-            ContactNo = 1234567890;
-            rating =0;
-            Reviews = new List<ReviewModelClass>();
+           
 
         }
         public int RestaurantId { get; set; }
@@ -29,10 +19,7 @@
                 {
                     restaurantName = value;
                 }
-                else
-                {
-                    throw new Exception("First Name can not be empty");
-                }
+               
             }
 
         }
@@ -49,15 +36,12 @@
                 {
                     zipCode = value;
                 }
-                else
-                {
-                    throw new Exception("Zip code can not be empty");
-                }
+               
             }
 
         }
         public string CostType { get; set; }
-        public List<ReviewModelClass> Reviews { get; set; }
+       public List<ReviewModelClass> Reviews { get; set; }
         public string Website { get; set; }
        
         private decimal contactNo;
@@ -73,14 +57,11 @@
                 {
                     contactNo = value;
                 }
-                else
-                {
-                    throw new Exception("Enter valid Contact No.");
-                }
+               
 
             }
         }
-        public int? rating { get; set; }
+        public double? rating { get; set; }
 
     }
 }

@@ -6,13 +6,16 @@ namespace RestaurantBl
 {
 	public class SearchUser
 	{
-		public SearchUser()
-		{
-		}
-		/// <summary>
+		
+        readonly IItemRepository<UserModelClass> repo;
+        public SearchUser(IItemRepository<UserModelClass> repo)
+        {
+            this.repo = repo;
+        }
+        /// <summary>
         /// it will ask for input to search a registered user in the database and will display the details of that user
         /// </summary>
-		public static List<UserModelClass> SearchUserAsAdmin(string searchValue)
+        public List<UserModelClass> SearchUserAsAdmin(string searchValue)
         {
             List<UserModelClass> userList = GetAllUser();
         
@@ -27,11 +30,11 @@ namespace RestaurantBl
 
 
         
-        public static List<UserModelClass> GetAllUser()
+        public  List<UserModelClass> GetAllUser()
         {
             Console.Clear();
-            UserRepository userRepository = new();
-            List<UserModelClass> userList = userRepository.GetItemFromDB();
+            //UserRepository userRepository =new userRepository();
+            List<UserModelClass> userList = repo.GetItemFromDB();
             return userList;
         }
     }

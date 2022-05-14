@@ -6,8 +6,12 @@ namespace RestaurantUi
   
     public class InitialRestaurantClass : IInitiateMenu
     {
-		public InitialRestaurantClass()
+        readonly AddUserLogic addUserLogic;
+        readonly Authentication authLogic;
+        public InitialRestaurantClass(AddUserLogic addUserLogic, Authentication authLogic)
 		{
+            this.addUserLogic = addUserLogic;
+            this.authLogic = authLogic;
 		}
         /// <summary>
         /// From this method program get started and will invoke the method to register or login
@@ -17,7 +21,7 @@ namespace RestaurantUi
         public string getinitiated()
         {
             
-            LoginClass login = new();
+            LoginClass login = new(authLogic);
             RegisteredNewUserSelectionMenu registeredNewUserSelectionMenu = new RegisteredNewUserSelectionMenu();
 
                 Console.WriteLine("Welcome to Restaurant");
@@ -44,7 +48,7 @@ namespace RestaurantUi
                         return result;
                     }else if(Globals.userChoice == "New user")
                     {
-                    AddUserClass addUserClass = new AddUserClass();
+                    AddUserClass addUserClass = new AddUserClass(addUserLogic,authLogic);
                     var result = addUserClass.SignupUser(Globals.choice);
                         Globals.userChoice = "Registered user";
                         return result;

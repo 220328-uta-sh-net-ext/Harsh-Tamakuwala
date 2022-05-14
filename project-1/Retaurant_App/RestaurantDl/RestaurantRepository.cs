@@ -5,55 +5,69 @@ using Microsoft.Data.SqlClient;
 
 namespace RestaurantDl
 {
-    public class RestaurantRepository : IItemRepository<RestaurantModelClass>
+    public class RestaurantRepository : IItemRepository<RestaurantModelClass>,IAvgReviewRepository
     {
-        private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
+       
         private readonly string connectionString;
-        public RestaurantRepository()
+       
+        public RestaurantRepository(string connectionString)
         {
-            connectionString = File.ReadAllText(connectionStringFilePath);
+            this.connectionString = connectionString;
         }
         public List<RestaurantModelClass> GetItemFromDB()
         {
             string result = "error";
             using SqlConnection connection = new(connectionString);
             var restaurants = new List<RestaurantModelClass>();
+           
             try
             {
                 string commandString = "SELECT * FROM Restaurants";
-              
-               
+
+                var avgList = getAvgReview();
 
                 connection.Open();
                 using SqlCommand command = new(commandString, connection);
 
                 using SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+               
+                var reviewList= getReview();
+                foreach (var item in avgList)
                 {
-                    restaurants.Add(new RestaurantModelClass
+                    while (reader.Read())
                     {
-                        RestaurantId = reader.GetInt32(0),
-                        RestaurantName = reader.GetString(1),
-                        Address1 = reader.GetString(2),
-                        city = reader.GetString(3),
-                        state = reader.GetString(4),
-                        ZipCode = reader.GetString(5),
-                        CostType = reader.GetString(6),
-                        Website = reader.GetString(7),
-                        ContactNo = reader.GetDecimal(8),
+                        List<ReviewModelClass> restReviewList=new List<ReviewModelClass>();
+                        foreach (var reItem in reviewList)
+                        {
+                            if (reader.GetInt32(0) == reItem.RestaurantId)
+                            {
+                                restReviewList.Add(reItem);
 
-                    });
+                            }
+                        }
+                       
+                        restaurants.Add(new RestaurantModelClass
+                        {
+                            RestaurantId = reader.GetInt32(0),
+                            RestaurantName = reader.GetString(1),
+                            Address1 = reader.GetString(2),
+                            city = reader.GetString(3),
+                            state = reader.GetString(4),
+                            ZipCode = reader.GetString(5),
+                            CostType = reader.GetString(6),
+                            Website = reader.GetString(7),
+                            ContactNo = reader.GetDecimal(8),
+                            rating = double.Parse(item.Rating),
+                            Reviews = restReviewList
 
+                        });
+                        break;
+                    }
                 }
-                //foreach (var restaurant in restaurants)
-                //{
-                //    Console.WriteLine(restaurant.RestaurantName);
-                //}
 
                 return restaurants;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = ex.Message;
             }
@@ -64,6 +78,42 @@ namespace RestaurantDl
             return restaurants;
         }
 
+        private List<ReviewModelClass> getReview()
+        {
+            var reviewList = new List<ReviewModelClass>();
+            using SqlConnection connection = new(connectionString);
+            try
+            {
+                string commandString = "select r.*,(u.firstname + ' ' + u.LastName) as 'UserName' from Reviews as r INNER join Users as u on r.RatedBy = u.userID order by RestaurantId; ";
+                connection.Open();
+                SqlCommand reviewCommand = new(commandString, connection);
+                SqlDataReader reviewReader = reviewCommand.ExecuteReader();
+
+            while (reviewReader.Read())
+            {
+                reviewList.Add(new ReviewModelClass
+                {
+                    ReviewId = reviewReader.GetInt32(0),
+                    RestaurantId = reviewReader.GetInt32(1),
+                    UserID = reviewReader.GetInt32(2),
+                    Rating = reviewReader.GetDouble(3),
+                    Comments = reviewReader.GetString(4),
+                    ReviewTime = reviewReader.GetDateTime(5),
+                    UserName = reviewReader.GetString(6)
+                });
+            }
+         }
+            
+             catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return reviewList;
+        }
 
         public string AddItemToDB(RestaurantModelClass item)
         {
@@ -84,7 +134,7 @@ namespace RestaurantDl
                 command.Parameters.AddWithValue("@RCosttype", item.CostType);
                 command.Parameters.AddWithValue("@RWebsite", item.Website);
                 command.Parameters.AddWithValue("@RPhoneno", item.ContactNo);
-                var success = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
                 result = "Restaurant Added!!!";
             }
@@ -100,7 +150,32 @@ namespace RestaurantDl
             return result;
         }
 
+        public List<AvgRating> getAvgReview()
+        {
+            Console.Clear();
+            string commandString = "Select AVG(r.ratings) as rating ,rs.RestaurantId from Reviews as r Right JOIN Restaurants as rs on r.RestaurantId = rs.RestaurantId GROUP BY rs.RestaurantId";
+            using SqlConnection connection = new(connectionString);
 
+            connection.Open();
+            using SqlCommand command = new(commandString, connection);
+            using SqlDataReader reader = command.ExecuteReader();
+
+
+            var avgRatingRest = new List<AvgRating>();
+
+            while (reader.Read())
+            {
+                avgRatingRest.Add(new AvgRating
+                {
+                    Rating = reader.IsDBNull(0) ? "0" : reader.GetDouble(0).ToString("#.#"),
+                    RestaurantId = reader.GetInt32(1),
+                });
+            }
+
+
+            return avgRatingRest;
+
+        }
 
     }
 }
