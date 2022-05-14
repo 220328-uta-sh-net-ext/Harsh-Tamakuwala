@@ -49,7 +49,33 @@ namespace RestaurantApi.Controllers
             }
         }
 
-        
+        [Route("getSearchRestaurant")]
+        // GET: api/values
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<List<ReviewModelClass>> Get(string searchRestaurant)
+        {
+
+            try
+            {
+                var restaurants = seach.SearchRestaurantBL(searchRestaurant);
+                if (restaurants == null)
+                {
+                    return NotFound("There is no restaurant in Database");
+                }
+                else
+                {
+                    return Ok(restaurants);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Server is down,please try again");
+            }
+        }
     }
 }
 
