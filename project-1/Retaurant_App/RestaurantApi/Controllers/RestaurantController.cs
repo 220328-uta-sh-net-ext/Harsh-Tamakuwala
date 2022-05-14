@@ -61,7 +61,7 @@ namespace RestaurantApi.Controllers
             try
             {
                 var restaurants = seach.SearchRestaurantBL(searchRestaurant);
-                if (restaurants == null)
+                if (restaurants.Count ==0)
                 {
                     return NotFound("There is no restaurant in Database");
                 }
@@ -74,6 +74,54 @@ namespace RestaurantApi.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Server is down,please try again");
+            }
+        }
+
+        [Route("addRestaurant")]
+        // POST api/values
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult PostRestaurant([FromBody] RestaurantModelClass restaurant)
+        {
+            if (restaurant == null)
+            {
+                return BadRequest("Invalid review, please try again with valid values.");
+            }
+            if (restaurant.RestaurantName == "" || restaurant.RestaurantName == null)
+            {
+                return BadRequest("Restaurant name can not be empty.");
+            }
+            if (restaurant.ZipCode == "" || restaurant.ZipCode == null)
+            {
+                return BadRequest("Restaurant zip code can not be empty.");
+            }
+            if (restaurant.ContactNo.ToString().Length != 10)
+            {
+                return BadRequest("Invalid Contact Number.");
+            }
+            try
+            {
+
+
+                var result = logic.AddRestaurantMethod(restaurant);
+                if (result == "Restaurant Added!")
+                {
+                    return Ok(restaurant);
+                }
+                else if (result == "You have already added this restaurant!!")
+                {
+                    return BadRequest("You have already added this restaurant!");
+                }
+                else
+                {
+                    return BadRequest("Something went wrong, please try again!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
             }
         }
     }
