@@ -6,22 +6,15 @@ namespace RestaurantDl
 {
     public class UserRepository : IItemRepository<UserModelClass>
     {
-        //private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
+        
         private readonly string connectionString;
 
-        //public UserRepository()
-        //{
-
-        //    connectionString = File.ReadAllText(connectionStringFilePath);
-        //}
+       
         public UserRepository(string connectionString)
         {
             this.connectionString = connectionString;
         }
-        //public UserRepository(string connectionString)
-        //{
-        //    this.connectionString = connectionString;
-        //}
+      
         public List<UserModelClass> GetItemFromDB()
         {
             string commandString = "SELECT * FROM Users";
@@ -50,7 +43,7 @@ namespace RestaurantDl
                 }
             }catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+               //Log.Information(ex.Message);
             }
             finally
             {
@@ -96,6 +89,7 @@ namespace RestaurantDl
                 {
                     return "Failed to add user";
                 }
+                //Log.Information(ex.Message);
             }
             finally
             {
@@ -105,49 +99,49 @@ namespace RestaurantDl
                 
         }
 
-        public void deleteUser(int id)
-        {
-            string commandString = "Delete from Users where userID=" + id;
-            using SqlConnection connection = new(connectionString);
-            try
-            {
-                connection.Open();
-                using SqlCommand command = new(commandString, connection);
-                command.ExecuteNonQuery();
+        //public void deleteUser(int id)
+        //{
+        //    string commandString = "Delete from Users where userID=" + id;
+        //    using SqlConnection connection = new(connectionString);
+        //    try
+        //    {
+        //        connection.Open();
+        //        using SqlCommand command = new(commandString, connection);
+        //        command.ExecuteNonQuery();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Log.Information(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
 
-        }
+        //}
 
-        public void updateUser(int id,UserModelClass user)
-        {
-            string commandString = "Update Users set FirstName = '"+user.FirstName+"' ,LastName = '"+user.LastName+"' ,EmailId = '"+user.EmailId+ "' ,ContactNo = '" + user.ContactNo+"' ,UserPassword = '"+user.Password+"' where userID=" + id;
-            using SqlConnection connection = new(connectionString);
-            try
-            {
-                connection.Open();
-                using SqlCommand command = new(commandString, connection);
-                command.ExecuteNonQuery();
+        //public void updateUser(int id,UserModelClass user)
+        //{
+        //    string commandString = "Update Users set FirstName = '"+user.FirstName+"' ,LastName = '"+user.LastName+"' ,EmailId = '"+user.EmailId+ "' ,ContactNo = '" + user.ContactNo+"' ,UserPassword = '"+user.Password+"' where userID=" + id;
+        //    using SqlConnection connection = new(connectionString);
+        //    try
+        //    {
+        //        connection.Open();
+        //        using SqlCommand command = new(commandString, connection);
+        //        command.ExecuteNonQuery();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Information(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
 
-        }
+        //}
 
 
     }

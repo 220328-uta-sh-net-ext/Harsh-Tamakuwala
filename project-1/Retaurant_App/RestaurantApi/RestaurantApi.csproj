@@ -18,6 +18,8 @@
     <None Remove="Xamarin.HotReload" />
     <None Remove="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <None Remove="Docker.DotNet" />
+    <None Remove="Serilog.Sinks.File" />
+    <None Remove="Serilog" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestaurantDl\RestaurantDl.csproj">

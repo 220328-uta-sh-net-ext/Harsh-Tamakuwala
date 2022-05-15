@@ -12,7 +12,13 @@ namespace RestaurantBl
         {
             this.repo = repo;
         }
-        public  string AddReviewMethod(ReviewModelClass reviewModel)
+
+        /// <summary>
+        /// this is logic for adding review in the databse
+        /// </summary>
+        /// <param name="reviewModel"></param>
+        /// <returns></returns>
+        public string AddReviewMethod(ReviewModelClass reviewModel)
         {
            
             var result = repo.AddItemToDB(reviewModel);
@@ -39,9 +45,7 @@ namespace RestaurantBl
         /// </summary>
         /// <returns>list of reviews</returns>
         public  List<ReviewModelClass> GetAllReview()
-        {
-            Console.Clear();
-           
+        {   
             List<ReviewModelClass> reviewList = repo.GetItemFromDB();
             return reviewList;
         }

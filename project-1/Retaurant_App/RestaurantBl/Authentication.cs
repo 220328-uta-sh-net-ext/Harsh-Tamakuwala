@@ -62,16 +62,12 @@ namespace RestaurantBl
                     
                 }
                 return "Login Failed";
-                Console.Clear();
+                
                 
                 
             }
             return "Login Failed";
         }
-
-
-
-        
     }
 }
 

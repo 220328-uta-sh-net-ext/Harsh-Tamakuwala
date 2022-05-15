@@ -6,12 +6,8 @@ namespace RestaurantDl
 {
     public class ReviewRepository : IItemRepository<ReviewModelClass>
     {
-        //private const string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
         private readonly string connectionString;
-        //public ReviewRepository()
-        //{
-        //    connectionString = File.ReadAllText(connectionStringFilePath);
-        //}
+      
         public ReviewRepository(string connectionString)
         {
             this.connectionString = connectionString;
@@ -22,7 +18,10 @@ namespace RestaurantDl
             string commandString = "SELECT r.*,u.firstname + ' ' + LastName ,rs.RestaurantName from Reviews as r INNER join Users as u on r.RatedBy = u.userID INNER join Restaurants as rs on r.RestaurantId = rs.RestaurantId Order by r.Reviewtime desc ";
             using SqlConnection connection = new(connectionString);
             var reviews = new List<ReviewModelClass>();
+            try
+            {
 
+           
             connection.Open();
             using SqlCommand command = new(commandString, connection);
 
@@ -44,7 +43,15 @@ namespace RestaurantDl
 
 
             }
-           
+            }
+            catch (Exception ex)
+            {
+                //Log.Information(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
             return reviews;
         }
 
@@ -71,6 +78,7 @@ namespace RestaurantDl
             }
             catch (Exception ex)
             {
+                //Log.Information(ex.Message);
                 result = ex.Message;
             }
             finally

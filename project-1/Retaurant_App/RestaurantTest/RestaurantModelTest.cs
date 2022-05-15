@@ -14,9 +14,8 @@ namespace RestaurantTest
         {
             //Arrange
             RestaurantModelClass restaurantModel = new RestaurantModelClass();
-            string validName = "abc";
-            //Act
-            restaurantModel.RestaurantName = validName;
+            restaurantModel.RestaurantName = "abc";
+           
             //Assert
             Assert.NotNull(restaurantModel.RestaurantName);
             
@@ -27,9 +26,10 @@ namespace RestaurantTest
         {
             //Arrange
             RestaurantModelClass restaurantModel = new RestaurantModelClass();
-            string validName = "07950";
-            //Act
-            restaurantModel.ZipCode = validName;
+           
+            restaurantModel.ZipCode = "07950";
+           
+            
             //Assert
             Assert.NotNull(restaurantModel.ZipCode);
             

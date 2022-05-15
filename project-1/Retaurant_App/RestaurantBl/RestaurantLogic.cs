@@ -12,6 +12,12 @@ namespace RestaurantBl
         {
             this.repo = repo;
         }
+
+        /// <summary>
+        /// this is logic for adding restaurant in the databse
+        /// </summary>
+        /// <param name="restaurantModelClass"></param>
+        /// <returns></returns>
         public string AddRestaurantMethod(RestaurantModelClass restaurantModelClass)
         {
 
@@ -40,8 +46,6 @@ namespace RestaurantBl
         /// <returns>list of restaurant</returns>
         public List<RestaurantModelClass> GetAllRestaurant()
         {
-            Console.Clear();
-           // RestaurantRepository restaurantRepository = new RestaurantRepository();
             var restaurants = repo.GetItemFromDB();
             return restaurants;
         }

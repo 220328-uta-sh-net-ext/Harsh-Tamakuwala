@@ -69,6 +69,7 @@ namespace RestaurantDl
             }
             catch (Exception ex)
             {
+                //Log.Information(ex.Message);
                 result = ex.Message;
             }
             finally
@@ -106,7 +107,8 @@ namespace RestaurantDl
             
              catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+               // Log.Information(ex.Message);
+               
             }
             finally
             {
@@ -140,6 +142,7 @@ namespace RestaurantDl
             }
             catch (Exception ex)
             {
+                //Log.Information(ex.Message);
                 result = ex.Message;
             }
             finally
@@ -152,16 +155,17 @@ namespace RestaurantDl
 
         public List<AvgRating> getAvgReview()
         {
-            Console.Clear();
+            
             string commandString = "Select AVG(r.ratings) as rating ,rs.RestaurantId from Reviews as r Right JOIN Restaurants as rs on r.RestaurantId = rs.RestaurantId GROUP BY rs.RestaurantId";
             using SqlConnection connection = new(connectionString);
+            var avgRatingRest = new List<AvgRating>();
+            try
+            {
 
+            
             connection.Open();
             using SqlCommand command = new(commandString, connection);
             using SqlDataReader reader = command.ExecuteReader();
-
-
-            var avgRatingRest = new List<AvgRating>();
 
             while (reader.Read())
             {
@@ -171,7 +175,16 @@ namespace RestaurantDl
                     RestaurantId = reader.GetInt32(1),
                 });
             }
-
+            }
+            catch (Exception ex)
+            {
+                //Log.Information(ex.Message);
+                
+            }
+            finally
+            {
+                connection.Close();
+            }
 
             return avgRatingRest;
 

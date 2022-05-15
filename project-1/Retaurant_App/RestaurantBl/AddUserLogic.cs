@@ -12,6 +12,12 @@ namespace RestaurantBl
         {
             this.repo = repo;
         }
+
+        /// <summary>
+        /// this is logic for adding user in the databse
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
         public string addUserMethod(UserModelClass userModel)
         {
             //UserRepository user = new UserRepository();
@@ -33,6 +39,8 @@ namespace RestaurantBl
                 return "Failed to add user \n";
             }
         }
+
+        
     }
 }
 

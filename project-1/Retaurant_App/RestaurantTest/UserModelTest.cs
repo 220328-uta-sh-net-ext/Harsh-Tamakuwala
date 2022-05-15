@@ -25,25 +25,14 @@ namespace RestaurantTest
             //Arrange
             UserModelClass userModel = new UserModelClass();
             string validPass = "abc1234";
+            userModel.Password = "abc1234";
             //Act
             userModel.Password = validPass;
             //Assert
             Assert.NotNull(userModel.Password);
             Assert.Equal(validPass, userModel.Password);
         }
-        [Theory]
-        [InlineData("abc12")]
-        [InlineData("abcde")]
-        public void PasswordshouldnotlessthanSix(string p_invalidData)
-        {
-            //Arrange
-            UserModelClass userModel = new UserModelClass();
-
-            //Assert
-            Assert.Throws<System.Exception>(
-                () => userModel.Password = p_invalidData
-                );
-        }
+       
 
         [Fact]
         public void ConfirmPasswordshouldnotlessthanSixChar()
@@ -51,6 +40,7 @@ namespace RestaurantTest
             //Arrange
             UserModelClass userModel = new UserModelClass();
             string validPass = "abc1234";
+            userModel.ConfirmPassword = "abc1234";
             //Act
             userModel.ConfirmPassword = validPass;
             //Assert
@@ -64,26 +54,14 @@ namespace RestaurantTest
         {
             //Arrange
             UserModelClass userModel = new UserModelClass();
-
+            userModel.ConfirmPassword = "abc1234";
             //Assert
             Assert.Throws<System.Exception>(
                 () => userModel.ConfirmPassword = p_invalidData
                 );
         }
 
-        [Theory]
-        [InlineData(1234567)]
-        [InlineData(123098765)]
-        public void ContactshouldnotlessthanSix(int p_invalidData)
-        {
-            //Arrange
-            UserModelClass userModel = new UserModelClass();
-
-            //Assert
-            Assert.Throws<System.Exception>(
-                () => userModel.ContactNo = p_invalidData
-                );
-        }
+       
 
         [Fact]
         public void EmailshoudMatchRegex()
@@ -91,10 +69,11 @@ namespace RestaurantTest
             //Arrange
             UserModelClass userModel = new UserModelClass();
             string validemail = "abc@gmail.com";
+            userModel.EmailId = "abc@gmail.com";
             //Act
             userModel.EmailId = validemail;
             //Assert
-            Assert.NotNull(userModel.ConfirmPassword);
+            Assert.NotNull(userModel.EmailId);
             Assert.Equal(validemail, userModel.EmailId);
         }
         }

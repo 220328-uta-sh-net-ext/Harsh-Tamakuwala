@@ -11,36 +11,23 @@ namespace RestaurantTest
         {
             //Arrange
             ReviewModelClass reviewModel = new ReviewModelClass();
-            string validComment = "nice restaurant!!";
-            //Act
-            reviewModel.Comments = validComment;
-            //Assert
+
+            reviewModel.Comments = "nice restaurant";
+          
+            //Assert,act
             Assert.NotNull(reviewModel.Comments);
-            Assert.Equal(validComment, reviewModel.Comments);
+            
         }
-        [Theory]
-        [InlineData(7)]
-        [InlineData(-2)]
-        public void PasswordshouldnotlessthanSix(int p_invalidData)
-        {
-            //Arrange
-            ReviewModelClass reviewModel = new ReviewModelClass();
-
-            //Assert
-            Assert.Throws<System.Exception>(
-                () => reviewModel.Rating = p_invalidData
-                );
-        }
-
+     
         [Fact]
         public void NonEmptyRestaurantName()
         {
             //Arrange
             ReviewModelClass reviewModel = new ReviewModelClass();
-            int validName = 1;
-            //Act
-            reviewModel.RestaurantId = validName;
-            //Assert
+            reviewModel.RestaurantId = 1;
+
+           
+            //Assert,Act
             Assert.NotNull(reviewModel.RestaurantId.ToString());
             
         }

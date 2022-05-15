@@ -1,5 +1,12 @@
-﻿using System;
+﻿//global using Serilog;
+
+using System;
 using RestaurantModel;
+
+
+//Log.Logger = new LoggerConfiguration().WriteTo.File("./Logs/user.txt").MinimumLevel.Debug().MinimumLevel.Information()
+//    .CreateLogger();
+
 namespace RestaurantDl
 {
     public interface IItemRepository<T> 

@@ -31,8 +31,7 @@ namespace RestaurantBl
 
         
         public  List<UserModelClass> GetAllUser()
-        {
-            Console.Clear();
+        { 
             //UserRepository userRepository =new userRepository();
             List<UserModelClass> userList = repo.GetItemFromDB();
             return userList;

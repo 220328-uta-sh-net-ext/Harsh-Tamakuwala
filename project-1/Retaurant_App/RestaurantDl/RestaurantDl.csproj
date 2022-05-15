@@ -9,6 +9,8 @@
   <ItemGroup>
     <None Remove="System.Data.SqlClient" />
     <None Remove="Microsoft.Data.SqlClient" />
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.File" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />

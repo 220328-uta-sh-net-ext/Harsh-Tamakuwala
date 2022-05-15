@@ -13,7 +13,7 @@ bool repeat = true;
 AdminUserMenu menu = new AdminUserMenu();
 
 
- string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
+string connectionStringFilePath = "../RestaurantDl/Db-Connection-string-File.txt";
 string connectionString = File.ReadAllText(connectionStringFilePath);
 
 IItemRepository<RestaurantModelClass> repo = new RestaurantRepository(connectionString);
@@ -22,7 +22,7 @@ IItemRepository<ReviewModelClass> reviewRepo = new ReviewRepository(connectionSt
 ReviewLogic reviewLogic = new ReviewLogic(reviewRepo);
 IAvgReviewRepository avgReviewRepo = new RestaurantRepository(connectionString);
 avgClass avgReviewLogic = new avgClass(avgReviewRepo);
-RestaurantOperation restaurantOperation = new RestaurantOperation(logic,reviewLogic, avgReviewLogic);
+RestaurantOperation restaurantOperation = new RestaurantOperation(logic, reviewLogic, avgReviewLogic);
 
 IItemRepository<UserModelClass> userRepo = new UserRepository(connectionString);
 AddUserLogic addUserLogic = new AddUserLogic(userRepo);
@@ -72,13 +72,13 @@ if (result == "Login Successful")
             case "ViewRestaurantReview":
                 Console.Clear();
                 restaurantOperation.ViewReviews();
-                Log.Information("Viewed Restaurant review.");  
+                Log.Information("Viewed Restaurant review.");
                 break;
 
             case "ViewRestaurantDetails":
                 Console.Clear();
                 restaurantOperation.ViewRestaurantDetails();
-                Log.Information("Viewed Restaurant Detail.");  
+                Log.Information("Viewed Restaurant Detail.");
                 break;
 
             case "AddRestaurantReview":
@@ -114,12 +114,12 @@ if (result == "Login Successful")
     }
 }
 
-else if(result.Contains("Violation of UNIQUE KEY constraint"))
+else if (result.Contains("Violation of UNIQUE KEY constraint"))
 {
     Log.Information(result);
     Console.WriteLine("Email ID is already registered!!");
     Console.WriteLine("User is not added!!");
-   
+
 }
 else
 {

@@ -21,12 +21,17 @@ namespace RestaurantApi.Controllers
             this.searchlogic = searchlogic;
             this.addlogic = addlogic;
         }
+
+        /// <summary>
+        /// it will get all the users from database
+        /// </summary>
+        /// <returns></returns>
         [Route("getAllUser")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<List<UserModelClass>> Get()
         {
            
@@ -35,7 +40,7 @@ namespace RestaurantApi.Controllers
                 var users = searchlogic.GetAllUser();
                 if(users == null)
                 {
-                    return NotFound("There is no users in Database");
+                    return Ok("There is no users in Database");
                 }
                 else
                 {
@@ -44,9 +49,16 @@ namespace RestaurantApi.Controllers
                
             }catch(Exception ex)
             {
-                return BadRequest("Server is down,please try again");
+                return Ok(ex.StackTrace);
             }
         }
+
+        /// <summary>
+        /// this will get searched the user detail from database 
+        /// </summary>
+        /// <param name="searchuser"></param>
+        /// <returns>user details</returns>
+        /// 
         [Route("getSearchUser")]
         // GET api/values/5
         [HttpGet]
@@ -55,14 +67,34 @@ namespace RestaurantApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<UserModelClass> Get(string searchuser)
         {
+
             if (searchuser == null || int.TryParse(searchuser, out int result) == true)
+            {
                 return BadRequest("Invalid input, please try again with valid input");
+            }
+            try
+            {
+
+           
             var user = searchlogic.SearchUserAsAdmin(searchuser);
             if (user.Count <= 0)
-                return NotFound("User not found");
+            {
+                return Ok("User not found");
+            }
             return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong,please try again");
+            }
         }
 
+
+        /// <summary>
+        /// it will add user to the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Route("addUser")]
         // POST api/values
         [HttpPost]
@@ -99,7 +131,6 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
 

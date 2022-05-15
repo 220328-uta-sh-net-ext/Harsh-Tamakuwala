@@ -20,6 +20,11 @@ namespace RestaurantApi.Controllers
 
             this.logic = logic;
         }
+
+        /// <summary>
+        /// it will get all the reviews from database
+        /// </summary>
+        /// <returns>return all the reviews</returns>
         [Route("getAllReviews")]
         // GET: api/values
         [HttpGet]
@@ -34,7 +39,7 @@ namespace RestaurantApi.Controllers
                 var reviews = logic.GetAllReview();
                 if (reviews == null)
                 {
-                    return NotFound("There is no review in Database");
+                    return Ok("There is no review in Database");
                 }
                 else
                 {
@@ -44,10 +49,15 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Server is down,please try again");
+                return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// it will add the reviews to the database
+        /// </summary>
+        /// <param name="review"></param>
+        /// <returns>return message whether review is added or not</returns>
         [Route("addReview")]
         // POST api/values
         [HttpPost]
@@ -81,7 +91,7 @@ namespace RestaurantApi.Controllers
                 }
                 else if(result == "You have already rated this restaurant!!")
                 {
-                    return BadRequest("You have already rated this restaurant!");
+                    return Ok("You have already rated this restaurant!");
                 }
                 else
                 {
@@ -90,7 +100,6 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
 

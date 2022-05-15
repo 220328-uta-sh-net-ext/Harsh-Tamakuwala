@@ -20,14 +20,17 @@ namespace RestaurantApi.Controllers
             this.seach = seach;
             this.logic = logic;
         }
-
+        /// <summary>
+        /// this will get all the rstaurant detail from database 
+        /// </summary>
+        /// <returns>restaurant detail</returns>
         [Route("getAllRestaurant")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<ReviewModelClass>> Get()
+        public ActionResult<List<RestaurantModelClass>> Get()
         {
 
             try
@@ -35,7 +38,7 @@ namespace RestaurantApi.Controllers
                 var restaurants = logic.GetAllRestaurant();
                 if (restaurants == null)
                 {
-                    return NotFound("There is no restaurant in Database");
+                    return Ok("There is no restaurant in Database");
                 }
                 else
                 {
@@ -45,17 +48,22 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Server is down,please try again");
+                return BadRequest("Something went wrong,please try again");
             }
         }
 
+        /// <summary>
+        /// this will get searched the rstaurant detail from database 
+        /// </summary>
+        /// <param name="searchRestaurant"></param>
+        /// <returns>restaurant details</returns>
         [Route("getSearchRestaurant")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<ReviewModelClass>> Get(string searchRestaurant)
+        public ActionResult<List<RestaurantModelClass>> Get(string searchRestaurant)
         {
 
             try
@@ -63,20 +71,26 @@ namespace RestaurantApi.Controllers
                 var restaurants = seach.SearchRestaurantBL(searchRestaurant);
                 if (restaurants.Count ==0)
                 {
-                    return NotFound("There is no restaurant in Database");
+                    return Ok("There is no restaurant in Database");                    
                 }
                 else
                 {
                     return Ok(restaurants);
+                   
                 }
 
             }
             catch (Exception ex)
             {
-                return BadRequest("Server is down,please try again");
+                return BadRequest("Something went wrong,please try again");
             }
         }
 
+        /// <summary>
+        /// it will add restaurant in the database
+        /// </summary>
+        /// <param name="restaurant"></param>
+        /// <returns>return message whether restaurant is added or not</returns>
         [Route("addRestaurant")]
         // POST api/values
         [HttpPost]
@@ -111,7 +125,7 @@ namespace RestaurantApi.Controllers
                 }
                 else if (result == "You have already added this restaurant!!")
                 {
-                    return BadRequest("You have already added this restaurant!");
+                    return Ok("You have already added this restaurant!");
                 }
                 else
                 {
@@ -120,7 +134,7 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-
+                
                 return BadRequest(ex.Message);
             }
         }
