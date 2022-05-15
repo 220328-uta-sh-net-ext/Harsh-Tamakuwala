@@ -7,7 +7,7 @@ namespace RestaurantBl
     public class RestaurantOperation
     {
 
-        public RestaurantOperation()
+        protected RestaurantOperation()
         {
         }
         /// <summary>
@@ -81,26 +81,26 @@ namespace RestaurantBl
         internal static void ChooseRestaurant()
         {
             ReviewRepository reviewRepository = new ReviewRepository();
-            var avgRating = reviewRepository.getAvgReview();
-
+            var avgRatings = reviewRepository.getAvgReview();
+            var avgRating = avgRatings.FirstOrDefault();
             RestaurantRepository restaurantRepository = new RestaurantRepository();
             var restaurants = restaurantRepository.GetItemFromDB();
-            foreach (var rate in avgRating.Select((value, index) => new { value, index }))
-            {
+            
+           
                 Console.WriteLine("\n---------------------------\n");
                 Console.WriteLine("You should try this restaurant next time as it has highest rating!!\n");
                 foreach (var restaurant in restaurants)
                 {
 
-                    if (rate.value.RestaurantId == restaurant.RestaurantId)
+                    if (avgRating.RestaurantId == restaurant.RestaurantId)
                     {
                         
                         Console.WriteLine("Restaurant Name:      " + restaurant.RestaurantName);
                         Console.WriteLine("Restaurant Address:   " + restaurant.Address1 + ", " + restaurant.city + ", " + restaurant.state);
                         Console.WriteLine("Restaurant Zipcode:   " + restaurant.ZipCode);
-                        if (rate.value.Rating != "0")
+                        if (avgRating.Rating != "0")
                         {
-                            Console.WriteLine("Average Rating:       " + rate.value.Rating);
+                            Console.WriteLine("Average Rating:       " + avgRating.Rating);
                         }
                         else
                         {
@@ -114,8 +114,7 @@ namespace RestaurantBl
                
                     Console.WriteLine("\n---------------------------\n");
                
-                break;
-            }
+               
 
         }
         /// <summary>
