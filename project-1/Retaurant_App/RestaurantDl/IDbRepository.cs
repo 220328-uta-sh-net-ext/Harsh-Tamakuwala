@@ -22,6 +22,13 @@ namespace RestaurantDl
         /// </summary>
         /// <returns>Returns a collection of item as Generic List</returns>
         List<T> GetItemFromDB();
+        /// <summary>
+        /// delete a new item to the database
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>The item deleted</returns>
+        string DeleteItemToDB(int id);
+
     }
     public interface IAvgReviewRepository{
         /// <summary>

@@ -10,7 +10,7 @@ using RestaurantModel;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/")]
+    [Route("api/[controller]")]
     public class RestaurantController : Controller
     {
         private RestaurantLogic logic;
@@ -24,7 +24,6 @@ namespace RestaurantApi.Controllers
         /// this will get all the rstaurant detail from database 
         /// </summary>
         /// <returns>restaurant detail</returns>
-        [Route("getAllRestaurant")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -48,6 +47,7 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
+                
                 return BadRequest("Something went wrong,please try again");
             }
         }
@@ -57,9 +57,8 @@ namespace RestaurantApi.Controllers
         /// </summary>
         /// <param name="searchRestaurant"></param>
         /// <returns>restaurant details</returns>
-        [Route("getSearchRestaurant")]
         // GET: api/values
-        [HttpGet]
+        [HttpGet("SearchRestaurant")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,14 +68,14 @@ namespace RestaurantApi.Controllers
             try
             {
                 var restaurants = seach.SearchRestaurantBL(searchRestaurant);
-                if (restaurants.Count ==0)
+                if (restaurants.Count == 0)
                 {
-                    return Ok("There is no restaurant in Database");                    
+                    return Ok("There is no restaurant in Database");
                 }
                 else
                 {
                     return Ok(restaurants);
-                   
+
                 }
 
             }
@@ -91,7 +90,7 @@ namespace RestaurantApi.Controllers
         /// </summary>
         /// <param name="restaurant"></param>
         /// <returns>return message whether restaurant is added or not</returns>
-        [Route("addRestaurant")]
+       
         // POST api/values
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -134,11 +133,18 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 return BadRequest(ex.Message);
             }
         }
+
+        // DELETE api/values/5
+        [HttpDelete("id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete(int id)
+        {
+            var result = logic.DeleteRestaurant(id);
+            return Ok(result);
+        }
     }
 }
-
-

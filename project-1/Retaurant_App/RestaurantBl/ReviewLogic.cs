@@ -25,17 +25,17 @@ namespace RestaurantBl
 
             if (result == "Review Added!!!")
             {
-                Console.WriteLine("\nReview Added!!!\n");
+                
                 return "Review Added!!!";
             }
             else if (result.Contains("Violation of UNIQUE KEY constrain"))
             {
-                Console.WriteLine("\nYou have already rated this restaurant!!\n");
+                
                 return "You have already rated this restaurant!!";
             }
             else
             {
-                Console.WriteLine("\nSomething went wrong, please try again!!\n");
+               
                 return "Something went wrong, please try again!!";
             }
         }
@@ -48,6 +48,24 @@ namespace RestaurantBl
         {   
             List<ReviewModelClass> reviewList = repo.GetItemFromDB();
             return reviewList;
+        }
+
+
+        public string DeleteReview(int id)
+        {
+            //UserRepository user = new UserRepository();
+            var result = repo.DeleteItemToDB(id);
+
+            if (result == "review deleted")
+            {
+
+                return "review deleted!";
+            }
+            else
+            {
+
+                return "Failed to delete review";
+            }
         }
 
     }

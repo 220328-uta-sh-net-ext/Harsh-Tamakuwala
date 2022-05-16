@@ -89,7 +89,27 @@ namespace RestaurantDl
             return result;
         }
 
-        
+        public string DeleteItemToDB(int id)
+        {
+            string commandString = "Delete from reviews where ReviewID=" + id;
+            using SqlConnection connection = new(connectionString);
+            try
+            {
+                connection.Open();
+                using SqlCommand command = new(commandString, connection);
+                command.ExecuteNonQuery();
+                return "review deleted";
+            }
+            catch (Exception ex)
+            {
+                //Log.Information(ex.Message);
+                return ex.Message;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
 

@@ -98,28 +98,30 @@ namespace RestaurantDl
                
                 
         }
-
-        //public void deleteUser(int id)
-        //{
-        //    string commandString = "Delete from Users where userID=" + id;
-        //    using SqlConnection connection = new(connectionString);
-        //    try
-        //    {
-        //        connection.Open();
-        //        using SqlCommand command = new(commandString, connection);
-        //        command.ExecuteNonQuery();
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Log.Information(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //}
+        
+   
+        public string DeleteItemToDB(int id)
+        {
+            string commandString = "Delete from Users where userid=" + id;
+            using SqlConnection connection = new(connectionString);
+            try
+            {
+                connection.Open();
+                using SqlCommand command = new(commandString, connection);
+                command.ExecuteNonQuery();
+                return "User deleted";
+            }
+            catch (Exception ex)
+            {
+                //Log.Information(ex.Message);
+                    return ex.Message;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            
+        }
 
         //public void updateUser(int id,UserModelClass user)
         //{

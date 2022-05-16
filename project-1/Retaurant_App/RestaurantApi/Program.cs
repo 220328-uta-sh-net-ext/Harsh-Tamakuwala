@@ -1,6 +1,11 @@
-﻿using RestaurantBl;
+﻿global using Serilog;
+
+using RestaurantBl;
 using RestaurantDl;
 using RestaurantModel;
+
+Log.Logger = new LoggerConfiguration().WriteTo.File("./Logs/user.txt").MinimumLevel.Debug().MinimumLevel.Information()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +33,7 @@ builder.Services.AddScoped<SearchRestaurantBl>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

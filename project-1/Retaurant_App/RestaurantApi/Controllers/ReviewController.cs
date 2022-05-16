@@ -11,7 +11,7 @@ using RestaurantModel;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/")]
+    [Route("api/[controller]")]
     public class ReviewController : Controller
     {
         private ReviewLogic logic;
@@ -25,7 +25,7 @@ namespace RestaurantApi.Controllers
         /// it will get all the reviews from database
         /// </summary>
         /// <returns>return all the reviews</returns>
-        [Route("getAllReviews")]
+      
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -58,7 +58,7 @@ namespace RestaurantApi.Controllers
         /// </summary>
         /// <param name="review"></param>
         /// <returns>return message whether review is added or not</returns>
-        [Route("addReview")]
+       
         // POST api/values
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -104,6 +104,14 @@ namespace RestaurantApi.Controllers
             }
 
         }
+
+        [HttpDelete("id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete(int id)
+        {
+            var result = logic.DeleteReview(id);
+            return Ok(result);
+        }   
 
     }
 }

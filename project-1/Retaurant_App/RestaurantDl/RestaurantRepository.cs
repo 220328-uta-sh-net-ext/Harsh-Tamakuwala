@@ -190,6 +190,29 @@ namespace RestaurantDl
 
         }
 
+        public string DeleteItemToDB(int id)
+        {
+            string commandString = "Delete from restaurants where RestaurantId=" + id;
+            using SqlConnection connection = new(connectionString);
+            try
+            {
+                connection.Open();
+                using SqlCommand command = new(commandString, connection);
+                command.ExecuteNonQuery();
+                return "restaurant deleted";
+            }
+            catch (Exception ex)
+            {
+                //Log.Information(ex.Message);
+                return ex.Message;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
     }
 }
 

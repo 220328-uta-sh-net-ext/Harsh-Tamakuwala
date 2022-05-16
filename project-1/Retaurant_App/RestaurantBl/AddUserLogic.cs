@@ -40,7 +40,23 @@ namespace RestaurantBl
             }
         }
 
-        
+        public string DeleteUser(int id)
+        {
+            //UserRepository user = new UserRepository();
+            var result = repo.DeleteItemToDB(id);
+
+            if (result == "User deleted")
+            {
+
+                return "User deleted!";
+            }
+            else
+            {
+
+                return "Failed to delete user";
+            }
+        }
+
     }
 }
 

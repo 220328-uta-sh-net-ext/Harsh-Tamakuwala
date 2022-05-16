@@ -25,17 +25,17 @@ namespace RestaurantBl
             var result = repo.AddItemToDB(restaurantModelClass);
             if (result == "Restaurant Added!!!")
             {
-                Console.WriteLine("\nRestaurant Added!!!\n");
+               
                 return "Restaurant Added!";
             }
             else if (result.Contains("Violation of UNIQUE KEY constrain"))
             {
-                Console.WriteLine("\nYou have already Added this restaurant!!\n");
+               
                 return "You have already added this restaurant!!";
             }
             else
             {
-                Console.WriteLine("\nSometing went wrong. please try again!!\n");
+               
                 return "Someting went wrong. please try again!";
             }
         }
@@ -50,6 +50,23 @@ namespace RestaurantBl
             return restaurants;
         }
 
+
+        public string DeleteRestaurant(int id)
+        {
+            //UserRepository user = new UserRepository();
+            var result = repo.DeleteItemToDB(id);
+
+            if (result == "restaurant deleted")
+            {
+
+                return "restaurant deleted!";
+            }
+            else
+            {
+
+                return "Failed to delete restaurant";
+            }
+        }
     }
 }
 

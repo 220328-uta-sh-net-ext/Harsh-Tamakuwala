@@ -10,7 +10,7 @@ using RestaurantModel;
 
 namespace RestaurantApi.Controllers
 {
-    [Route("api/")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private SearchUser searchlogic;
@@ -26,7 +26,7 @@ namespace RestaurantApi.Controllers
         /// it will get all the users from database
         /// </summary>
         /// <returns></returns>
-        [Route("getAllUser")]
+       // [Route("getAllUser")]
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,9 +59,9 @@ namespace RestaurantApi.Controllers
         /// <param name="searchuser"></param>
         /// <returns>user details</returns>
         /// 
-        [Route("getSearchUser")]
+       // [Route("getSearchUser")]
         // GET api/values/5
-        [HttpGet]
+        [HttpGet("searchuser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,6 +70,7 @@ namespace RestaurantApi.Controllers
 
             if (searchuser == null || int.TryParse(searchuser, out int result) == true)
             {
+                Log.Information("Invalid input, please try again with valid input");
                 return BadRequest("Invalid input, please try again with valid input");
             }
             try
@@ -85,6 +86,7 @@ namespace RestaurantApi.Controllers
             }
             catch (Exception ex)
             {
+                Log.Information(ex.Message);
                 return BadRequest("Something went wrong,please try again");
             }
         }
@@ -95,7 +97,7 @@ namespace RestaurantApi.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Route("addUser")]
+        //[Route("addUser")]x`
         // POST api/values
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -177,17 +179,16 @@ namespace RestaurantApi.Controllers
         //    }
         //}
 
-        //[Route("deleteUser")]
-        //// DELETE api/values/5
-        //[HttpDelete]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public ActionResult Delete(int id)
-        //{
-
-        //    UserRepository userRepository = new UserRepository();
-        //    userRepository.deleteUser(id);
-        //    return Ok();
-        //}
+       
+        // DELETE api/values/5
+       
+        [HttpDelete("id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete(int id)
+        {
+            var result=addlogic.DeleteUser(id);
+            return Ok(result);
+        }
 
     }
 }
