@@ -1,4 +1,4 @@
-# Digital Green Thumb
+# Digital Green Thumb - website
 
 ## Requirements
 
